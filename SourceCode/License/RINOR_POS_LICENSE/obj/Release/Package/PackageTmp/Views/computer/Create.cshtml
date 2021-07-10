@@ -1,0 +1,253 @@
+﻿@model RINOR_POS.ModelLicence.computerViewModel
+
+@{
+    ViewBag.Title = "Computer";
+}
+
+<div id="content">
+    <div class="row">
+        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+            <h1 class="page-title txt-color-blueDark">
+
+                <!-- PAGE HEADER -->
+                <i class="fa-fw fa fa-pencil-square-o"></i>
+                Computer
+                <span>
+                    >
+                    New Data
+                </span>
+            </h1>
+        </div>
+    </div>
+
+    <section id="widget-grid" class="">
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="jarviswidget" id="wid-id-3" data-widget-editbutton="false" data-widget-custombutton="false" data-widget-togglebutton="false" data-widget-collapsed="false">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <h2>Computer </h2>
+                    </header>
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+
+                            @using (Html.BeginForm("Create", "computer", FormMethod.Post, htmlAttributes: new { @class = "smart-form", enctype = "multipart/form-data" }))
+                            {
+                                <header>
+                                    New Data Form
+                                </header>
+
+                                <fieldset>
+                                    <fieldset>
+                                        @Html.AntiForgeryToken()
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        <br />
+                                        @Html.HiddenFor(model => model.ComputerNameId)
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelRequiredFor(model => model.ShopId, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <label class="input">
+                                                        @Html.DropDownListFor(model => model.ShopId, new SelectList(Model.mastershop_list, "ShopID", "ShopName"), "- Select Shop -", htmlAttributes: new { @class = "form-control select2" })
+                                                        @Html.ValidationMessageFor(model => model.ShopId, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelRequiredFor(model => model.ComputerName, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.ComputerName, new { htmlAttributes = new { @class = "form-control col-lg-6", placeholder = "Computer" } })
+                                                        @Html.ValidationMessageFor(model => model.ComputerName, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelRequiredFor(model => model.ComputerTypeId, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <label class="input">
+                                                        @Html.DropDownListFor(model => model.ComputerTypeId, new SelectList(Model.computertype_list, "ComputerTypeId", "ComputerTypeName"), "- Select Computer Type -", htmlAttributes: new { @class = "form-control select2" })
+                                                        @Html.ValidationMessageFor(model => model.ComputerTypeId, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.RegistrationNumber, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.RegistrationNumber, new { htmlAttributes = new { @class = "form-control col-lg-6", placeholder = "Registration Number" } })
+                                                        @Html.ValidationMessageFor(model => model.RegistrationNumber, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.DeviceCode, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.DeviceCode, new { htmlAttributes = new { @class = "form-control col-lg-6", placeholder = "DeviceCode" } })
+                                                        @Html.ValidationMessageFor(model => model.DeviceCode, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.Activate, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <span class="onoffswitch-title"></span> <span class="onoffswitch">
+                                                        <input type="checkbox" name="Activate" id="Activate" class="onoffswitch-checkbox" value="true" @(Model.Activate.GetValueOrDefault() ? "checked=\"checked\"" : "") />
+                                                        <label class="onoffswitch-label" for="Activate">
+                                                            <span class="onoffswitch-inner" data-swchon-text="Yes" data-swchoff-text="No"></span>
+                                                            <span class="onoffswitch-switch"></span>
+                                                        </label>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    Payment Type Selected
+                                                </div>
+                                                <div class="col-md-2 box-scroll">
+                                                    @foreach (var item in Model.paytype_list)
+                                                    {
+                                                        <label class="container-box" style="padding-left:35px;margin-left:4px; margin-top:2px">
+                                                            <input id="chk@(item.PayTypeID)"
+                                                                   type="checkbox"
+                                                                   name="pay_type_selected"
+                                                                   value="@item.PayTypeID" />
+                                                            <span class="checkmark"></span>@item.PayTypeCode - @item.PayTypeName
+                                                        </label>
+                                                        <br />
+                                                    }
+                                                </div>
+
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    Sale Mode Selected
+                                                </div>
+                                                <div class="col-md-2 box-scroll">
+                                                    @foreach (var item in Model.salemode_list)
+                                                    {
+                                                        <label class="container-box" style="padding-left:35px;margin-left:4px; margin-top:2px">@item.SaleModeName
+                                                            <input id="chk@(item.SaleModeID)"
+                                                                   type="checkbox"
+                                                                   name="sale_mode_selected"
+                                                                   value="@item.SaleModeID" />
+                                                            <span class="checkmark"></span>
+                                                        </label>
+                                                        <br />
+                                                    }
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.ReceiptHeader, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.ReceiptHeader, new { htmlAttributes = new { @class = "form-control col-lg-6", placeholder = "Receipt Header" } })
+                                                        @Html.ValidationMessageFor(model => model.ReceiptHeader, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.FullTaxHeader, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.FullTaxHeader, new { htmlAttributes = new { @class = "form-control col-lg-6", placeholder = "Full Tax Header" } })
+                                                        @Html.ValidationMessageFor(model => model.FullTaxHeader, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.IPAddress, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.IPAddress, new { htmlAttributes = new { @class = "form-control col-lg-6", placeholder = "IP Address" } })
+                                                        @Html.ValidationMessageFor(model => model.IPAddress, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </fieldset>
+                                </fieldset>
+
+                                <footer>
+                                    <div class="form-group">
+                                        <div class="col-md-7">
+                                            @Html.ActionLink("Cancel", "Index", "computer", htmlAttributes: new { @class = "btn btn-default" })
+                                            <input type="submit" value="Save" class="btn btn-primary" />
+                                        </div>
+                                    </div>
+                                </footer>
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>

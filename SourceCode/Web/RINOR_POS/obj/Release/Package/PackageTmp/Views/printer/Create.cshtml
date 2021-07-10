@@ -1,0 +1,254 @@
+﻿@model RINOR_POS.Models.printerViewModel
+
+@{
+    ViewBag.Title = "Printer";
+}
+
+<div id="content">
+    <div class="row">
+        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+            <h1 class="page-title txt-color-blueDark">
+
+                <!-- PAGE HEADER -->
+                <i class="fa-fw fa fa-pencil-square-o"></i>
+                Printer
+                <span>
+                    >
+                    New Data
+                </span>
+            </h1>
+        </div>
+    </div>
+
+    <section id="widget-grid" class="">
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="jarviswidget" id="wid-id-3" data-widget-editbutton="false" data-widget-custombutton="false" data-widget-togglebutton="false" data-widget-collapsed="false">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <h2>Printer </h2>
+                    </header>
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+
+                            @using (Html.BeginForm("Create", "printer", FormMethod.Post, htmlAttributes: new { @class = "smart-form", enctype = "multipart/form-data" }))
+                            {
+                                <header>
+                                    New Data Form
+                                </header>
+
+                                <fieldset>
+                                    <fieldset>
+                                        @Html.AntiForgeryToken()
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        <br />
+                                        @Html.HiddenFor(model => model.PrinterID)
+                                        @Html.HiddenFor(model => model.PrinterTypeID)
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelRequiredFor(model => model.PrinterName, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.PrinterName, new { htmlAttributes = new { @class = "form-control col-lg-6", placeholder = "Printer Name" } })
+                                                        @Html.ValidationMessageFor(model => model.PrinterName, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.PrinterDeviceName, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.PrinterDeviceName, new { htmlAttributes = new { @class = "form-control col-lg-6", placeholder = "Printer Device Name" } })
+                                                        @Html.ValidationMessageFor(model => model.PrinterDeviceName, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.PrinterDeviceBackup, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.PrinterDeviceBackup, new { htmlAttributes = new { @class = "form-control col-lg-6", placeholder = "Printer Device Backup" } })
+                                                        @Html.ValidationMessageFor(model => model.PrinterDeviceBackup, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.PrinterNameForPrint, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.PrinterNameForPrint, new { htmlAttributes = new { @class = "form-control col-lg-6", placeholder = "Printer Name For Print" } })
+                                                        @Html.ValidationMessageFor(model => model.PrinterNameForPrint, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.PaperWidth, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.PaperWidth, "1", new { htmlAttributes = new { @class = "form-control", placeholder = "Paper Width" } })
+                                                        @Html.ValidationMessageFor(model => model.PaperWidth, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.LineSpacing, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.LineSpacing, "1", new { htmlAttributes = new { @class = "form-control", placeholder = "Line Spacing" } })
+                                                        @Html.ValidationMessageFor(model => model.LineSpacing, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.MarginTop, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.MarginTop, "1", new { htmlAttributes = new { @class = "form-control", placeholder = "Margin Top" } })
+                                                        @Html.ValidationMessageFor(model => model.MarginTop, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.MarginBottom, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.MarginBottom, "1", new { htmlAttributes = new { @class = "form-control", placeholder = "Margin Bottom" } })
+                                                        @Html.ValidationMessageFor(model => model.MarginBottom, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.MarginLeft, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.MarginLeft, "1", new { htmlAttributes = new { @class = "form-control", placeholder = "Margin Left" } })
+                                                        @Html.ValidationMessageFor(model => model.MarginLeft, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.MarginRight, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.MarginRight, "1", new { htmlAttributes = new { @class = "form-control", placeholder = "Margin Right" } })
+                                                        @Html.ValidationMessageFor(model => model.MarginRight, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.IsOposPrinter, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <span class="onoffswitch-title"></span> <span class="onoffswitch">
+                                                        <input type="checkbox" name="IsOposPrinter" id="IsOposPrinter" class="onoffswitch-checkbox" value="true" @(Model.IsOposPrinter.GetValueOrDefault() ? "checked=\"checked\"" : "") />
+                                                        <label class="onoffswitch-label" for="IsOposPrinter">
+                                                            <span class="onoffswitch-inner" data-swchon-text="Yes" data-swchoff-text="No"></span>
+                                                            <span class="onoffswitch-switch"></span>
+                                                        </label>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.PrinterStatus, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <label class="radio">
+                                                        @Html.RadioButtonFor(model => model.PrinterStatus, "1")
+                                                        <i></i>Online
+                                                    </label>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <label class="radio">
+                                                        @Html.RadioButtonFor(model => model.PrinterStatus, "0")
+                                                        <i></i>Offline
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </fieldset>
+                                </fieldset>
+                                <footer>
+                                    <div class="form-group">
+                                        <div class="col-md-7">
+                                            @Html.ActionLink("Cancel", "Index", "printer", new { id = Model.PrinterTypeID }, htmlAttributes: new { @class = "btn btn-default" })
+                                            <input type="submit" value="Save" class="btn btn-primary" />
+                                        </div>
+                                    </div>
+                                </footer>
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>

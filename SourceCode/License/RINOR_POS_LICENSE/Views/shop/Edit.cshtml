@@ -1,0 +1,379 @@
+﻿@model RINOR_POS.ModelLicence.shopViewModel
+
+@{
+    ViewBag.Title = "Shop Manage Data Edit";
+}
+
+<div id="content">
+    <div class="row">
+        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+            <h1 class="page-title txt-color-blueDark">
+
+                <!-- PAGE HEADER -->
+                <i class="fa-fw fa fa-pencil-square-o"></i>
+                Shop
+                <span>
+                    >
+                    Update Data
+                </span>
+            </h1>
+        </div>
+    </div>
+
+    <section id="widget-grid" class="">
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="jarviswidget" id="wid-id-3" data-widget-editbutton="false" data-widget-custombutton="false" data-widget-togglebutton="false" data-widget-collapsed="false">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <h2>Shop</h2>
+                    </header>
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+
+                            @using (Html.BeginForm("Edit", "shop", FormMethod.Post, htmlAttributes: new { @class = "smart-form", enctype = "multipart/form-data" }))
+                            {
+                                <header>
+                                    Update Data Form
+                                </header>
+
+                                <fieldset>
+                                    <fieldset>
+                                        @Html.AntiForgeryToken()
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        @Html.HiddenFor(model => model.ShopID)
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <h3 style="color:green;">Your key should be in register system.</h3>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.MerchantID, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <label class="input">
+                                                        @Html.DropDownListFor(model => model.MerchantID, new SelectList(Model.merchant_list, "MerchantID", "MerchantName"), "- Select Merchant -", htmlAttributes: new { id = "ddlMerchant", @class = "form-control select2", @onChange = "GetBrandList(this.value)", @disabled = "disabled" })
+                                                        @Html.ValidationMessageFor(model => model.MerchantID, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.BrandID, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <label class="input">
+                                                        @Html.DropDownListFor(model => model.BrandID, new SelectList(Model.brand_list, "BrandID", "BrandName"), "- Select Brand -", htmlAttributes: new { id = "ddlBrand", @class = "form-control select2", @onChange = "GetMasterShopList(this.value)", @disabled = "disabled" })
+                                                        @Html.ValidationMessageFor(model => model.BrandID, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.ShopKey, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-md-8">
+                                                    @Html.EditorFor(model => model.ShopKey, new { htmlAttributes = new { @ID = "shopkey", @maxlength = "19", @readonly = "readonly", @class = "form-control item form-control-lg", @onkeypress = "javascript:return isNumber(event)", @style = "text-align:center;font-size:large;background-color:aliceblue", placeholder = "Auto Generated" } })
+                                                    @Html.ValidationMessageFor(model => model.ShopKey, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            @*<div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2"></div>
+                                                <div class="col-md-8">
+                                                    <input id="btnVerify" value="Verify" class="btn btn-primary" style="height:26px; width:100%" />
+                                                </div>
+                                            </div>*@
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.ShopName, new { htmlAttributes = new { @class = "form-control" } })
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.ShopName, new { htmlAttributes = new { @class = "form-control", placeholder = "Shop Name", @readonly = "readonly" } })
+                                                        @Html.ValidationMessageFor(model => model.ShopName, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.ShopCode, new { htmlAttributes = new { @class = "form-control" } })
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.ShopCode, new { htmlAttributes = new { @class = "form-control", placeholder = "Shop Code", @readonly = "readonly" } })
+                                                        @Html.ValidationMessageFor(model => model.ShopCode, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.CompanyName, new { htmlAttributes = new { @class = "form-control" } })
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.CompanyName, new { htmlAttributes = new { @class = "form-control", placeholder = "Company Name", @readonly = "readonly" } })
+                                                        @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                        </section>
+
+                                    </fieldset>
+                                </fieldset>
+
+                                <footer>
+                                    <div class="form-group">
+                                        <div class="col-md-7">
+                                            @Html.ActionLink("Cancel", "Index", "crud", htmlAttributes: new { @class = "btn btn-default" })
+                                            <input type="submit" value="Generate Key" class="btn btn-primary" />
+                                        </div>
+                                    </div>
+                                </footer>
+                                                            }
+                            @*<fieldset>
+                                <section id="widget-grid" class="">
+                                    <div class="row">
+                                        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                            <table id="jqgrid"></table>
+                                            <div id="pjqgrid"></div>
+                                        </article>
+                                    </div>
+                                </section>
+                            </fieldset>*@
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>
+
+@*@section pagespecific {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+           
+            $('#StartSaleDate').datepicker({
+                dateFormat: 'dd-mm-yy',
+                prevText: '<i class="fa fa-chevron-left"></i>',
+                nextText: '<i class="fa fa-chevron-right"></i>',
+                changeMonth: true,
+                changeYear: true
+            });
+
+            $('.clockpicker').clockpicker({
+                placement: 'top',
+                align: 'left',
+                autoclose: 'true'
+            });
+
+            jQuery("#jqgrid").jqGrid({
+                url: './shop/preferencesList/',
+                datatype: "json",
+                mtype: 'Get',
+                height: 'auto',
+                colNames: ['Actions', '', 'Name', 'Description', 'Value', 'Text', ''],
+                colModel: [
+                    { name: 'act', index: 'act', search: false, sortable: false, width: 60 },
+                    { name: 'PropertyID', key: true, index: 'PropertyID', editable: false, hidden: true, editrules: { edithidden: false } },
+                    { name: 'PropertyName', index: 'PropertyName', sortable: true, editable: false, width: 150 },
+                    { name: 'PropertyDesp', index: 'PropertyDesp', sortable: true, editable: false, width: 200 },
+                    { name: 'DefaultDecimalValue', index: 'DefaultDecimalValue', align: "right", search: false, sortable: true, editable: true, width: 50 },
+                    { name: 'DefaultTextValue', index: 'DefaultTextValue', sortable: true, search: false, editable: true, edittype: 'textarea', width: 200 },
+                    { name: 'Ordering', index: 'Ordering', editable: false, hidden: true, editrules: { edithidden: false } }
+                ],
+
+                rowNum: 10,
+                rowList: [10, 20, 30, 50],
+                pager: '#pjqgrid',
+                sortname: 'Ordering',
+                toolbarfilter: true,
+                viewrecords: true,
+                sortorder: "asc",
+                gridComplete: function () {
+                    var ids = jQuery("#jqgrid").jqGrid('getDataIDs');
+                    for (var i = 0; i < ids.length; i++) {
+                        var cl = ids[i];
+
+                        be = "<button class='btn btn-xs btn-default' data-original-title='Edit Row' onclick=\"jQuery('#jqgrid').editRow('" + cl + "');\"><i class='fa fa-pencil'></i></button>";
+                        se = "<button class='btn btn-xs btn-default' data-original-title='Save Row' onclick=\"jQuery('#jqgrid').saveRow('" + cl + "');\"><i class='fa fa-save'></i></button>";
+                        ca = "<button class='btn btn-xs btn-default' data-original-title='Cancel' onclick=\"jQuery('#jqgrid').restoreRow('" + cl + "');\"><i class='fa fa-times'></i></button>";
+                        jQuery("#jqgrid").jqGrid('setRowData', ids[i], {
+                            act: be + se + ca
+                        });
+                    }
+                },
+                jsonReader: {
+                    root: "rows",
+                    page: "page",
+                    total: "total",
+                    records: "records",
+                    repeatitems: false,
+                    Id: "0"
+                },
+                editurl: './shop/Crud',
+                caption: "Preferences",
+                emptyrecords: 'No Preference Records are Available to Display',
+                multiselect: true,
+                autowidth: true
+
+            });
+
+            jQuery("#jqgrid").jqGrid('navGrid', "#pjqgrid", {
+                edit: false,
+                add: false,
+                del: false,
+                search: true,
+                refresh: true,
+                view: true,
+                closeAfterSearch: true
+            }, {
+                zIndex: 100,
+                caption: "Search Preference",
+                sopt: ['eq', 'ne', 'lt', 'le', 'gt', 'ge', 'bw', 'bn', 'ew', 'en', 'cn', 'nc', 'nu', 'nn', 'in', 'ni'],
+                closeAfterSearch: true
+            });
+
+            jQuery("#jqgrid").jqGrid('inlineNav', "#pjqgrid", {
+                edit: false,
+                add: false,
+                save: false,
+                cancel: false
+            });
+            /* Add tooltips */
+            $('.navtable .ui-pg-button').tooltip({
+                container: 'body'
+            });
+
+            // remove classes
+            $(".ui-jqgrid").removeClass("ui-widget ui-widget-content");
+            $(".ui-jqgrid-view").children().removeClass("ui-widget-header ui-state-default");
+            $(".ui-jqgrid-labels, .ui-search-toolbar").children().removeClass("ui-state-default ui-th-column ui-th-ltr");
+            $(".ui-jqgrid-pager").removeClass("ui-state-default");
+            $(".ui-jqgrid").removeClass("ui-widget-content");
+
+            // add classes
+            $(".ui-jqgrid-htable").addClass("table table-bordered table-hover");
+            $(".ui-jqgrid-btable").addClass("table table-bordered table-striped");
+
+            $(".ui-pg-div").removeClass().addClass("btn btn-sm btn-primary");
+            $(".ui-icon.ui-icon-document").removeClass().addClass("fa fa-table");
+            $(".ui-icon.ui-icon-pencil").removeClass().addClass("fa fa-pencil");
+            $(".ui-icon.ui-icon-trash").removeClass().addClass("fa fa-trash-o");
+            $(".ui-icon.ui-icon-search").removeClass().addClass("fa fa-search");
+            $(".ui-icon.ui-icon-refresh").removeClass().addClass("fa fa-refresh");
+            $(".ui-icon.ui-icon-disk").removeClass().addClass("fa fa-save").parent(".btn-primary").removeClass("btn-primary").addClass("btn-success");
+            $(".ui-icon.ui-icon-cancel").removeClass().addClass("fa fa-times").parent(".btn-primary").removeClass("btn-primary").addClass("btn-danger");
+
+            $(".ui-icon.ui-icon-seek-prev").wrap("<div class='btn btn-sm btn-default'></div>");
+            $(".ui-icon.ui-icon-seek-prev").removeClass().addClass("fa fa-backward");
+
+            $(".ui-icon.ui-icon-seek-first").wrap("<div class='btn btn-sm btn-default'></div>");
+            $(".ui-icon.ui-icon-seek-first").removeClass().addClass("fa fa-fast-backward");
+
+            $(".ui-icon.ui-icon-seek-next").wrap("<div class='btn btn-sm btn-default'></div>");
+            $(".ui-icon.ui-icon-seek-next").removeClass().addClass("fa fa-forward");
+
+            $(".ui-icon.ui-icon-seek-end").wrap("<div class='btn btn-sm btn-default'></div>");
+            $(".ui-icon.ui-icon-seek-end").removeClass().addClass("fa fa-fast-forward");
+
+        });
+
+        function GetBrandList(MerchantID) {
+            var loc_id = $("#ddlMerchant").val();
+            $.ajax({
+                "url": baseURL + "productprice/GetBrandList?MerchantID=" + MerchantID,
+                "type": "GET",
+                "dataType": "json",
+                success: function (data) {
+                    var output = '<option value="0"> Select Brand </option>';
+                    $.each(data, function (key, entry) {
+                        output += '<option value=' + entry.BrandID + '>' + entry.BrandName + '</option>';
+                    })
+                    $("#ddlBrand").html(output);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            });
+        }
+
+        function GetMasterShopList(BrandID) {
+            var loc_id = $("#ddlBrand").val();
+            $.ajax({
+                "url": baseURL + "productprice/GetMasterShopList?BrandID=" + BrandID,
+                "type": "GET",
+                "dataType": "json",
+                success: function (data) {
+                    var output = '<option value="0"> Select Master Shop </option>';
+                    $.each(data, function (key, entry) {
+                        output += '<option value=' + entry.ShopID + '>' + entry.ShopName + '</option>';
+                    })
+                    $("#ddlMasterShop").html(output);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            });
+        }
+
+        document.getElementById('shopkey').addEventListener('keydown', function (e) {
+            var value = this.value;
+            if (value.length < 18) {
+                if (String.fromCharCode(e.keyCode) != "\b") {
+                    if (value.length % 5 == 4) {
+                        this.value = this.value + '-';
+                    }
+                }
+            }
+        }, false);
+
+        function isNumber(evt) {
+            var iKeyCode = (evt.which) ? evt.which : evt.keyCode
+            if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
+                return false;
+
+            return true;
+        }
+    </script>
+}*@

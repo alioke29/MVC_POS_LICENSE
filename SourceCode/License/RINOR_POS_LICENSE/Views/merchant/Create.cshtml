@@ -1,0 +1,144 @@
+﻿@model RINOR_POS.ModelLicence.merchantViewModel
+
+@{
+    ViewBag.Title = "Merchant";
+}
+
+<div id="content">
+    <div class="row">
+        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+            <h1 class="page-title txt-color-blueDark">
+
+                <!-- PAGE HEADER -->
+                <i class="fa-fw fa fa-pencil-square-o"></i>
+                Merchant
+                <span>
+                    >
+                    New Data
+                </span>
+            </h1>
+        </div>
+    </div>
+
+    <section id="widget-grid" class="">
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="jarviswidget" id="wid-id-3" data-widget-editbutton="false" data-widget-custombutton="false" data-widget-togglebutton="false" data-widget-collapsed="false">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <h2>Merchant New Data</h2>
+                    </header>
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+
+                            @using (Html.BeginForm("Create", "merchant", FormMethod.Post, htmlAttributes: new { @class = "smart-form", enctype = "multipart/form-data" }))
+                            {
+                                <header>
+                                    New Data Form
+                                </header>
+
+                                <fieldset>
+                                    <fieldset>
+                                        @Html.AntiForgeryToken()
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        <br />
+                                        @Html.HiddenFor(model => model.MerchantID)
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelRequiredFor(model => model.MerchantKey, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.MerchantKey, new { htmlAttributes = new { @readonly = "readonly", @ID = "merchantkey", @maxlength = "19", @class = "form-control item form-control-lg", @onkeypress = "javascript:return isNumber(event)", @style = "text-align:center;font-size:large;background-color:aliceblue", placeholder = "Auto Generated" } })
+                                                        @Html.ValidationMessageFor(model => model.MerchantKey, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelRequiredFor(model => model.MerchantCode, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.MerchantCode, new { htmlAttributes = new { @class = "form-control", placeholder = "Merchant Code" } })
+                                                        @Html.ValidationMessageFor(model => model.MerchantCode, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelRequiredFor(model => model.MerchantName, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.MerchantName, new { htmlAttributes = new { @class = "form-control", placeholder = "Merchant Name" } })
+                                                        @Html.ValidationMessageFor(model => model.MerchantName, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                      
+                                    </fieldset>
+                                </fieldset>
+
+                                <footer>
+                                    <div class="form-group">
+                                        <div class="col-md-7">
+                                            @Html.ActionLink("Cancel", "Index", "merchant", htmlAttributes: new { @class = "btn btn-default" })
+                                            <input type="submit" value="Save" class="btn btn-primary" />
+                                        </div>
+                                    </div>
+                                </footer>
+
+                                                            }
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>
+
+@section pagespecific {
+    <script type="text/javascript">
+
+        document.getElementById('merchantkey').addEventListener('keydown', function (e) {
+            var value = this.value;
+            if (value.length < 18) {
+                if (String.fromCharCode(e.keyCode) != "\b") {
+                    if (value.length % 5 == 4) {
+                        this.value = this.value + '-';
+                    }
+                }
+            }
+        }, false);
+
+        function isNumber(evt) {
+            var iKeyCode = (evt.which) ? evt.which : evt.keyCode
+            if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
+                return false;
+
+            return true;
+        }
+    </script>
+}

@@ -1,0 +1,177 @@
+﻿@model RINOR_POS.ModelLicence.userroleViewModel
+
+@{
+    ViewBag.Title = "Group User Role";
+}
+
+<div id="content">
+    <div class="row">
+        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+            <h1 class="page-title txt-color-blueDark">
+
+                <!-- PAGE HEADER -->
+                <i class="fa-fw fa fa-pencil-square-o"></i>
+                Group User Role
+                <span>
+                    >
+                    New Data
+                </span>
+            </h1>
+        </div>
+    </div>
+
+    <section id="widget-grid" class="">
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="jarviswidget" id="wid-id-3" data-widget-editbutton="false" data-widget-custombutton="false" data-widget-togglebutton="false" data-widget-collapsed="false">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <h2>Group User Role </h2>
+                    </header>
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+
+                            @using (Html.BeginForm("Create", "userrole", FormMethod.Post, htmlAttributes: new { @class = "smart-form", enctype = "multipart/form-data" }))
+                            {
+                                <header>
+                                    New Data Form
+                                </header>
+
+                                <fieldset>
+                                    <fieldset>
+                                        @Html.AntiForgeryToken()
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        <br />
+                                        @Html.HiddenFor(model => model.UserRoleID)
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.MerchantId, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <label class="input">
+                                                        @Html.DropDownListFor(model => model.MerchantId, new SelectList(Model.merchant_list, "MerchantID", "MerchantName"), "- Select Merchant -", htmlAttributes: new { id = "ddlMerchant", @class = "form-control select2", @onChange = "GetBrandList(this.value)" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.BrandId, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <label class="input">
+                                                        @Html.DropDownListFor(model => model.BrandId, new SelectList(Model.brand_list, "BrandID", "BrandName"), "- Select Brand -", htmlAttributes: new { id = "ddlBrand", @class = "form-control select2", @onChange = "GetShopList(this.value)" })
+                                                        @Html.ValidationMessageFor(model => model.BrandId, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelRequiredFor(model => model.ShopID, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <label class="input">
+                                                        @Html.DropDownListFor(model => model.ShopID, new SelectList(Model.shop_list, "ShopId", "ShopName"), "- Select Shop -", htmlAttributes: new { id = "ddlShop", @class = "form-control select2" })
+                                                        @Html.ValidationMessageFor(model => model.ShopID, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelRequiredFor(model => model.Role, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.Role, new { htmlAttributes = new { @class = "form-control col-lg-6", placeholder = "Role" } })
+                                                        @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+
+                                    </fieldset>
+                                </fieldset>
+
+                                <footer>
+                                    <div class="form-group">
+                                        <div class="col-md-7">
+                                            @Html.ActionLink("Cancel", "Index", "userrole", htmlAttributes: new { @class = "btn btn-default" })
+                                            <input type="submit" value="Save" class="btn btn-primary" />
+                                        </div>
+                                    </div>
+                                </footer>
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>
+
+@section pagespecific {
+    <script type="text/javascript">
+
+        function GetBrandList(MerchantID) {
+            var loc_id = $("#ddlMerchant").val();
+            $.ajax({
+                "url": baseURL + "productprice/GetBrandList?MerchantID=" + MerchantID,
+                "type": "GET",
+                "dataType": "json",
+                success: function (data) {
+                    var output = '<option value="0"> Select Brand </option>';
+                    $.each(data, function (key, entry) {
+                        output += '<option value=' + entry.BrandID + '>' + entry.BrandName + '</option>';
+                    })
+                    $("#ddlBrand").html(output);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            });
+        }
+
+        function GetShopList(BrandID) {
+            var loc_id = $("#ddlBrand").val();
+            $.ajax({
+                "url": baseURL + "productprice/GetShopList?BrandID=" + BrandID,
+                "type": "GET",
+                "dataType": "json",
+                success: function (data) {
+                    var output = '<option value="0"> Select Shop </option>';
+                    $.each(data, function (key, entry) {
+                        output += '<option value=' + entry.ShopID + '>' + entry.ShopName + '</option>';
+                    })
+                    $("#ddlShop").html(output);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            });
+        }
+    </script>
+}

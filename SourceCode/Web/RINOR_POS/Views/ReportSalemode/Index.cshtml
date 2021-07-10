@@ -1,0 +1,314 @@
+﻿@model RINOR_POS.Models.ReportsViewModel
+
+@{
+    ViewBag.Title = "Report Sale Mode";
+}
+
+<div id="content">
+    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+        <h1 class="page-title txt-color-blueDark">
+
+            <!-- PAGE HEADER -->
+            <i class="fa-fw fa fa-pencil-square-o"></i>
+            Reports
+            <span>
+                >
+                Sales Mode
+            </span>
+        </h1>
+    </div>
+    <section id="widget-grid" class="">
+        <article class="col-sm-12">
+            <div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
+                <header>
+                    <span class="widget-icon"> <i class="fa fa-filter"></i> </span>
+                    <h2>Filter Report</h2>
+                </header>
+                <div>
+                    @*@using (Html.BeginForm("Index", "ReportSales", FormMethod.Post, htmlAttributes: new { @class = "smart-form", enctype = "multipart/form-data" }))
+                        {*@
+                    @Html.AntiForgeryToken()
+                    <fieldset>
+                        <fieldset>
+                            <section>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        Report Period
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="input-group">
+                                            @{var StartPeriod = string.Format("{0:dd-MM-yyyy}", Model.StartPeriod); }
+                                            @Html.EditorFor(model => StartPeriod, new { htmlAttributes = new { @class = "form-control", placeholder = "DD-MM-YYYY", id = "StartPeriod" } })
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </label>
+                                        @Html.ValidationMessageFor(model => model.StartPeriod, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="input-group">
+                                            @{var EndPeriod = string.Format("{0:dd-MM-yyyy}", Model.EndPeriod); }
+                                            @Html.EditorFor(model => EndPeriod, new { htmlAttributes = new { @class = "form-control", placeholder = "DD-MM-YYYY", id = "EndPeriod" } })
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </label>
+                                        @Html.ValidationMessageFor(model => model.StartPeriod, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                            </section>
+                            <section>
+                                <div class="row">
+
+                                    <div class="col-md-2">
+                                        Master Shop
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label class="input">
+                                            @Html.DropDownListFor(model => model.ShopId, new SelectList(Model.shop_list, "ShopId", "ShopName"), "- Select All Shop -", htmlAttributes: new { id = "ShopId", @class = "form-control select2", @onChange = "GetShopList(this.value)" })
+                                            @*@Html.ValidationMessageFor(model => model.ShopId, "", new { @class = "text-danger" })*@
+                                        </label>
+                                    </div>
+                                </div>
+                            </section>
+                            <section>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        Shop
+                                    </div>
+                                    <div id="DivShopList" class="col-lg-3">
+                                        <div id="Divshop_available" style="visibility:hidden"></div>
+                                    </div>
+                                </div>
+                            </section>
+                            <br />
+                            <section>
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <input type="submit" value="Show Report" class="btn btn-primary" , onclick="ShowReport()" />
+                                    </div>
+                                </div>
+                            </section>
+                            <br />
+                        </fieldset>
+                    </fieldset>
+                    @*}*@
+                </div>
+            </div>
+            <div class="jarviswidget jarviswidget-color-darken" id="wid-id-1" data-widget-editbutton="false">
+                <header>
+                    <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                    <h2>Report Sale Mode</h2>
+                </header>
+                <div style="padding-bottom:20px">
+                    <br />
+                    <div class="widget-body no-padding">
+                        <table class="table table-striped table-bordered dt-responsive nowrap" width="100%" id="table_basic">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Sale Mode
+                                        <br /><input type="text" class="form-control" placeholder="Filter" />
+                                    </th>
+                                    <th>
+                                        Product Group
+                                        <br /><input type="text" class="form-control" placeholder="Filter" />
+                                    </th>
+                                    <th>
+                                        Product Dept
+                                        <br /><input type="text" class="form-control" placeholder="Filter" />
+                                    </th>
+                                    <th>
+                                        Product
+                                        <br /><input type="text" class="form-control" placeholder="Filter" />
+                                    </th>
+                                    <th class="sum text-right">
+                                        Qty
+                                        <br /><input type="text" class="form-control" placeholder="Filter" />
+                                    </th>
+                                    <th class="text-right">
+                                        Qty (%)
+                                        <br /><input type="text" class="form-control" placeholder="Filter" />
+                                    </th>
+                                    <th class="sum text-right">
+                                        Gross Sales
+                                        <br /><input type="text" class="form-control" placeholder="Filter" />
+                                    </th>
+                                    <th class="text-right">
+                                        Gross Sales (%)
+                                        <br /><input type="text" class="form-control" placeholder="Filter" />
+                                    </th>
+                                    <th class="sum text-right">
+                                        Discount
+                                        <br /><input type="text" class="form-control" placeholder="Filter" />
+                                    </th>
+                                    <th class="sum text-right">
+                                        Vat
+                                        <br /><input type="text" class="form-control" placeholder="Filter" />
+                                    </th>
+                                    <th class="sum text-right">
+                                        Service Charge
+                                        <br /><input type="text" class="form-control" placeholder="Filter" />
+                                    </th>
+                                    <th class="sum text-right">
+                                        Net Sales
+                                        <br /><input type="text" class="form-control" placeholder="Filter" />
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tfoot align="right">
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th class="text-right"></th>
+                                    <th class="text-right"></th>
+                                    <th class="text-right"></th>
+                                    <th class="text-right"></th>
+                                    <th class="text-right"></th>
+                                    <th class="text-right"></th>
+                                    <th class="text-right"></th>
+                                    <th class="text-right"></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+</div>
+
+@section pagespecific {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#StartPeriod').datepicker({
+                dateFormat: 'dd-mm-yy',
+                prevText: '<i class="fa fa-chevron-left"></i>',
+                nextText: '<i class="fa fa-chevron-right"></i>',
+                changeMonth: true,
+                changeYear: true
+            });
+            $('#EndPeriod').datepicker({
+                dateFormat: 'dd-mm-yy',
+                prevText: '<i class="fa fa-chevron-left"></i>',
+                nextText: '<i class="fa fa-chevron-right"></i>',
+                changeMonth: true,
+                changeYear: true
+            });
+            $('#table_basic').DataTable({
+                dom: "<'dt-toolbar'<'col-xs-12 col-sm-6'B><'col-sm-6 col-xs-12 hidden-xs'l>r>" + "tip",
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            });
+
+        });
+        function ShowReport() {
+            if ($.fn.DataTable.isDataTable('#table_basic')) {
+                $('#table_basic').dataTable().fnDestroy();
+            }
+            var startperiod = document.getElementById("StartPeriod").value;
+            var endperiod = document.getElementById("EndPeriod").value;
+            var shopid = document.getElementById("ShopId").value;
+
+            var checkListShop = document.getElementById("DivShopList");
+            var ShopList = checkListShop.getElementsByTagName("input");
+            var Shopselected = '';
+            for (var i = 0; i < ShopList.length; i++) {
+                if (ShopList[i].checked) {
+                    Shopselected += ShopList[i].value + ",";
+                }
+            }
+
+            var otable = $('#table_basic').DataTable(
+                {
+                    "ajax": {
+                        "url": baseURL + "ReportSalemode/GetIndexList?StartPeriod=" + startperiod + "&EndPeriod=" + endperiod + "&ShopId=" + shopid + "&ShopList=" + Shopselected,
+                        "type": "GET",
+                        "datatype": "json",
+                    },
+                    "dom": "<'dt-toolbar'<'col-xs-12 col-sm-6'B><'col-sm-6 col-xs-12 hidden-xs'l>r>" + "tip",
+                    "buttons": [
+                        'copy', 'csv', 'excel', 'pdf', 'print', 'colvis'
+                    ],
+                    "scrollY": true,
+                    "columns": [
+                        { "data": "SaleModeName", "autoWidth": true },
+                        { "data": "ProductGroupName", "autoWidth": true },
+                        { "data": "ProductDeptName", "autoWidth": true },
+                        { "data": "ProductName", "autoWidth": true },
+                        { "data": "Qty", "autoWidth": true, "className": "text-right" },
+                        { "data": "QtyPercent", "autoWidth": true, "className": "text-right" },
+                        { "data": "SubTotal", "autoWidth": true, "className": "text-right" },
+                        { "data": "SubTotalPercent", "autoWidth": true, "className": "text-right" },
+                        { "data": "DiscountValue", "autoWidth": true, "className": "text-right" },
+                        { "data": "VAT", "autoWidth": true, "className": "text-right" },
+                        { "data": "ServiceCharge", "autoWidth": true, "className": "text-right" },
+                        { "data": "NetSales", "autoWidth": true, "className": "text-right" }
+                    ],
+                    "order": [[0, 'asc'], [1, 'asc'], [2, 'asc'], [2, 'asc']],
+                    "rowGroup": {
+                        "dataSrc": ['SaleModeName', 'ProductGroupName', 'ProductDeptName']
+                    },
+                    "columnDefs": [ {
+                        targets: [0, 1, 2],
+                        visible: false
+                    } ],
+                    "footerCallback": function (row, data, start, end, display) {
+                        var api = this.api();
+
+                        api.columns('.sum', {
+                            page: 'current'
+                        }).every(function () {
+                            var sum = this
+                              .data()
+                              .reduce(function (a, b) {
+                                  var x = parseFloat(a) || 0;
+                                  var y = parseFloat(b) || 0;
+                                  return x + y;
+                              }, 0);
+
+                            $(this.footer()).html(sum);
+                        });
+                    }
+                });
+           // Apply the search
+            otable.columns().every(function () {
+                var that = this;
+
+                $('input', this.header()).on('keyup change clear', function () {
+                    if (that.search() !== this.value) {
+                        that
+                            .search(this.value)
+                            .draw();
+                    }
+                });
+            });
+            /* END COLUMN FILTER */
+        }
+
+        function GetShopList(MasterShopID) {
+            $.ajax({
+                "url": baseURL + "ReportSalemode/GetShopList?MasterShopID=" + MasterShopID,
+                "type": "GET",
+                "dataType": "json",
+                success: function (data) {
+                    var output = '';
+                    var available = '';
+                    $.each(data, function (key, entry) {
+                        output += ' <label class="checkbox"><input id="o' + entry.ShopID + '" type="checkbox" name="shop_selected" value="' + entry.ShopID + '" /><i></i>' + entry.ShopCode + ' - ' + entry.ShopName + '</label>'
+                        available += ' <label class="checkbox"><input id="a' + entry.ShopID + '" type="checkbox" checked="true" name="shop_available" value="' + entry.ShopID + '" /><i></i>' + entry.ShopCode + ' - ' + entry.ShopName + '</label>'
+                    })
+                    $("#DivShopList").html(output);
+                    $("#Divshop_available").html(available);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            });
+        }
+    </script>
+}

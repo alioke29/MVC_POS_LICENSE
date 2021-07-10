@@ -1,0 +1,200 @@
+﻿@model RINOR_POS.Models.promotionshoplinkViewModel
+
+@{
+    ViewBag.Title = "Promotion Shop Link";
+}
+
+<div id="content">
+    <div class="row">
+        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+            <h1 class="page-title txt-color-blueDark">
+
+                <!-- PAGE HEADER -->
+                <i class="fa-fw fa fa-pencil-square-o"></i>
+                @Model.PromotionTypeName
+                <span>
+                    >
+                    @Model.PromotionName
+                </span>
+            </h1>
+        </div>
+    </div>
+
+    <section id="widget-grid" class="">
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="jarviswidget" id="wid-id-3" data-widget-editbutton="false" data-widget-custombutton="false" data-widget-togglebutton="false" data-widget-collapsed="false">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <h2>Promotion Shop Link</h2>
+                    </header>
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+
+                            @using (Html.BeginForm("ShopLink", "Promotion", FormMethod.Post, htmlAttributes: new { @class = "smart-form", enctype = "multipart/form-data" }))
+                            {
+                                <fieldset style="align-items:flex-end">
+                                    <a class="btn btn-default btn-sm pull-right header-btn hidden-mobile" href="@Url.Action("Index", "promotion", Request.Url.Scheme)"><i class='fa fa-arrow-circle-left'></i> Back</a>
+                                </fieldset>
+                                <fieldset>
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    @Html.HiddenFor(model => model.PromotionID, new { @id = "promotionid" })
+                                    @Html.HiddenFor(model => model.IsActive)
+
+                                    <section>
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                            </div>
+                                            <div class="col-md-3">
+                                                @Html.LabelRequiredFor(model => model.MasterShopID, htmlAttributes: new { @class = "control-label" })
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <label class="input">
+                                                    @Html.DropDownListFor(model => model.MasterShopID, new SelectList(Model.MasterShopList, "ShopID", "ShopName"), "- Select Master Shop -", htmlAttributes: new { @id = "ddlShop", @class = "form-control select2", @onChange = "GetShopList(this.value)" })
+                                                    @Html.ValidationMessageFor(model => model.MasterShopID, "", new { @class = "text-danger" })
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <section>
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                            </div>
+                                            <div class="col-md-3">
+                                                @Html.LabelRequiredFor(model => model.ShopID, htmlAttributes: new { @class = "control-label" })
+                                            </div>
+                                            <div class="col-lg-6 box-scroll" id="chkBoxShop">
+
+                                            </div>
+                                        </div>
+                                    </section>
+                                </fieldset>
+                                <fieldset>
+                                    <div class="form-group">
+                                        <div class="col-md-7">
+                                            @*<input id="btnDeleteAll" type="submit" value="Delete" style="margin-right:5px" class="btn btn-danger pull-right btn-sm" />*@
+                                            <input type="submit" value="Save" style="width:80px; margin:0px 20px 20px 0px" class="btn btn-primary pull-right btn-sm" />
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <section>
+                                        <div id="divtable" class="col-md-12" style="overflow:auto;height:500px">
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-10">
+                                                <div class="widget-body no-padding">
+                                                    <br />
+                                                    <table class="table table-striped table-bordered table-hover" id="table_basic">
+                                                        <thead>
+                                                            <tr>
+                                                                <th hidden="hidden"></th>
+                                                                <th style="width:30%; text-align:center">
+                                                                    Shop Name
+                                                                </th>
+                                                                <th style="width:10%">
+                                                                    Action
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody>
+                                                            @{
+                                                                int i = 0;
+                                                                foreach (var GroupMasterShop in Model.PromoShopLinkList.GroupBy(x => x.MasterShopID))
+                                                                {
+                                                                    <tr style="background-color:lightgray">
+                                                                        <td colspan="2">
+                                                                            <label>Master Shop: @GroupMasterShop.FirstOrDefault().MasterShopName</label>
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    foreach (var item in GroupMasterShop)
+                                                                    {
+                                                                        <tr>
+                                                                            <td hidden="hidden">
+                                                                                @Html.EditorFor(modelItem => item.PromotionShopLinkID, new { htmlAttributes = new { @id = "PromotionProductID_" + i, @class = "form-control", @readonly = "readonly" } })
+                                                                            </td>
+                                                                            <td style="padding-left:3%">
+                                                                                @Html.DisplayFor(modelItem => item.ShopName, new { htmlAttributes = new { @id = "BuyQty_" + i, @class = "form-control" } })
+                                                                            </td>
+                                                                            <td>
+                                                                                <button value="@item.PromotionShopLinkID" onclick="DeleteShopByID(value)" class="btn btn-danger btn-sm">Delete</button>
+                                                                            </td>
+                                                                        </tr>
+
+                                                                        i++;
+                                                                    }
+                                                                }
+                                                            }
+                                                        </tbody>
+
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </fieldset>
+
+                                                                }
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>
+
+@section pagespecific {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#ddlShop').val('').change();
+        });
+        function GetShopList(MasterShopID) {
+            var promotionid = document.getElementById("promotionid").value;
+            $.ajax({
+                "url": baseURL + "promotion/GetShopList?MasterShopID=" + MasterShopID + "&PromotionID=" + promotionid,
+                "type": "GET",
+                "dataType": "json",
+                success: function (data) {
+                    var output = '';
+                    $.each(data, function (key, entry) {
+                        if (entry.PromotionID == null)
+                            output += '<label class="container-box" style="padding-left:35px;margin-left:4px; margin-top:2px"><input id="chkShopID_' + entry.ShopID + '" name="shop_selected" type="checkbox" value="' + entry.ShopID + '" /><span class="checkmark"></span>' + entry.ShopName + '</label><br />'
+                        else
+                            output += '<label class="container-box" style="padding-left:35px;margin-left:4px; margin-top:2px"><input id="chkShopID_' + entry.ShopID + '" name="shop_selected" type="checkbox" checked="true" value="' + entry.ShopID + '" /><span class="checkmark"></span>' + entry.ShopName + '</label><br />'
+                    })
+
+                    $("#chkBoxShop").html(output);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            });
+        }
+        function DeleteShopByID(id) {
+            $.ajax({
+                type: "GET",
+                url: baseURL + "promotion/DeleteShopByID/" + id,
+                success: function (data) {
+                    if (data == "1") {
+                        location.reload(true);
+                    }
+                    else {
+                        alert("Failed Delete Data");
+                    }
+
+                },
+            });
+        }
+    </script>
+}

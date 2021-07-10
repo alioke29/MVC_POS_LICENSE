@@ -1,0 +1,141 @@
+﻿@model RINOR_POS.ModelLicence.LicenseTypeViewModel
+
+@{
+    ViewBag.Title = "License Type";
+}
+
+<div id="content">
+    <div class="row">
+        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+            <h1 class="page-title txt-color-blueDark">
+
+                <!-- PAGE HEADER -->
+                <i class="fa-fw fa fa-pencil-square-o"></i>
+                License Type
+                <span>
+                    >
+                    Update Data
+                </span>
+            </h1>
+        </div>
+    </div>
+
+    <section id="widget-grid" class="">
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="jarviswidget" id="wid-id-3" data-widget-editbutton="false" data-widget-custombutton="false" data-widget-togglebutton="false" data-widget-collapsed="false">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <h2>Licence Type </h2>
+                    </header>
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+
+                            @using (Html.BeginForm("Edit", "licencetype", FormMethod.Post, htmlAttributes: new { @class = "smart-form", enctype = "multipart/form-data" }))
+                            {
+                                <header>
+                                    New Data Form
+                                </header>
+
+                                <fieldset>
+                                    <fieldset>
+                                        @Html.AntiForgeryToken()
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        <br />
+                                        @Html.HiddenFor(model => model.LicenceTypeID)
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelRequiredFor(model => model.LicenceName, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.LicenceName, new { htmlAttributes = new { @class = "form-control col-lg-6", placeholder = "Licence Type" } })
+                                                        @Html.ValidationMessageFor(model => model.LicenceName, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control" } })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.Duration, "1", new { htmlAttributes = new { @class = "form-control", placeholder = "Duration" } })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelRequiredFor(model => model.Pricing, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <label class="input">
+                                                        @Html.DropDownListFor(model => model.CurrencyId, new SelectList(Model.CurrencyList, "CurrencyId", "CurrencyCode"), "- Select Currency -", htmlAttributes: new { @class = "form-control select2" })
+                                                    </label>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.Pricing, new { htmlAttributes = new { @class = "form-control col-lg-6", placeholder = "Pricing" } })
+                                                        @Html.ValidationMessageFor(model => model.Pricing, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.isActive, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <span class="onoffswitch-title"></span> <span class="onoffswitch">
+                                                        <input type="checkbox" name="isActive" id="isActive" class="onoffswitch-checkbox" value="true" @(Model.isActive ? "checked=\"checked\"" : "") />
+                                                        <label class="onoffswitch-label" for="isActive">
+                                                            <span class="onoffswitch-inner" data-swchon-text="Yes" data-swchoff-text="No"></span>
+                                                            <span class="onoffswitch-switch"></span>
+                                                        </label>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </fieldset>
+                                </fieldset>
+
+                                <footer>
+                                    <div class="form-group">
+                                        <div class="col-md-7">
+                                            @Html.ActionLink("Cancel", "Index", "licencetype", htmlAttributes: new { @class = "btn btn-default" })
+                                            <input type="submit" value="Save" class="btn btn-primary" />
+                                        </div>
+                                    </div>
+                                </footer>
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>

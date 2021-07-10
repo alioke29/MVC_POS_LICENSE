@@ -1,0 +1,527 @@
+﻿@model RINOR_POS.Models.productpriceViewModel
+
+@{
+    ViewBag.Title = "Manage Product Price";
+}
+
+<style>
+    .col-custom-header {
+        background-color: lightgray;
+        text-align: center;
+    }
+
+    .col-custom-1 {
+        background-color: orangered;
+        text-align: right;
+    }
+
+    .col-custom-2 {
+        background-color: cornflowerblue;
+        text-align: right;
+    }
+
+    .col-custom-3 {
+        background-color: burlywood;
+        text-align: right;
+    }
+
+    .col-custom-4 {
+        background-color: greenyellow;
+        text-align: right;
+    }
+
+    .col-custom-5 {
+        background-color: plum;
+        text-align: right;
+    }
+
+    .col-custom-6 {
+        background-color: gray;
+        text-align: right;
+    }
+
+    .col-custom-7 {
+        background-color: palevioletred;
+        text-align: right;
+    }
+
+    .col-custom-8 {
+        background-color: goldenrod;
+        text-align: right;
+    }
+
+    .col-custom-9 {
+        background-color: cadetblue;
+        text-align: right;
+    }
+
+    .col-custom-0 {
+        background-color: lawngreen;
+        text-align: right;
+    }
+
+    .col-textbox {
+        width: 80%;
+        text-align: right;
+    }
+
+    input[type='number'] {
+        -moz-appearance: textfield;
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+</style>
+
+<div id="content">
+    <!-- row -->
+    <div class="row">
+        <div class="col-lg-6">
+            <h1 class="page-title txt-color-blueDark">
+
+                <!-- PAGE HEADER -->
+                <i class="fa-fw fa fa-pencil-square-o"></i>
+                Product Price
+                <span>
+                    >
+                    List
+                </span>
+            </h1>
+        </div>
+
+        <div class="col-lg-6">
+            @if (ViewBag.CanUpdate)
+            {
+                <!-- Button trigger modal -->
+                <a class="btn btn-primary btn-sm pull-right header-btn hidden-mobile" href="@Url.Action("index", "pricetime", new { id = 0 }, Request.Url.Scheme)"><i class='fa fa-clock-o'></i> Set Time Criteria</a>
+                <a class="btn btn-primary btn-sm pull-right header-btn hidden-mobile" style="margin-right:5px" href="@Url.Action("index", "pricegroup", new { id = 0 }, Request.Url.Scheme)"><i class='fa fa-money'></i> Set Price Group</a>
+            }
+        </div>
+    </div>
+
+    <section id="widget-grid" class="">
+        <div class="row">
+            <article class="col-sm-12">
+                <div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                        <h2>Update Product Price Data</h2>
+                    </header>
+                    <div class="row">
+                        <div class="col-md-3">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <section>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        @Html.LabelFor(model => model.MerchantId, htmlAttributes: new { @class = "control-label" })
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="input">
+                                            @Html.DropDownListFor(model => model.MerchantId, new SelectList(Model.merchant_list, "MerchantID", "MerchantName"), "- Select Merchant -", htmlAttributes: new { id = "ddlMerchant", @class = "form-control select2", @onChange = "GetBrandList(this.value)" })
+                                        </label>
+                                    </div>
+                                </div>
+                            </section>
+                            <section>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        @Html.LabelFor(model => model.BrandId, htmlAttributes: new { @class = "control-label" })
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label class="input">
+                                            @Html.DropDownListFor(model => model.BrandId, new SelectList(Model.brand_list, "BrandID", "BrandName"), "- Select Brand -", htmlAttributes: new { id = "ddlBrand", @class = "form-control select2", @onChange = "GetShopList(this.value)" })
+                                            @Html.ValidationMessageFor(model => model.BrandId, "", new { @class = "text-danger" })
+                                        </label>
+                                    </div>
+                                </div>
+                            </section>
+                            <section>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        @Html.LabelFor(model => model.ShopId, htmlAttributes: new { @class = "control-label" })
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label class="input">
+                                            @Html.DropDownListFor(model => model.ShopId, new SelectList(Model.shop_list, "ShopId", "ShopName"), "- Select Shop -", htmlAttributes: new { id = "ddlShop", @class = "form-control select2", @onChange = "GetProductGroupList(this.value)" })
+                                            @Html.ValidationMessageFor(model => model.ShopId, "", new { @class = "text-danger" })
+                                        </label>
+                                    </div>
+                                </div>
+                            </section>
+                            <section>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        @Html.LabelFor(model => model.ProductPriceDateId, htmlAttributes: new { @class = "control-label" })
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label class="input">
+                                            @Html.DropDownListFor(model => model.ProductPriceDateId, new SelectList(Model.pricedate_list, "ProductPriceDateID", "ValidDate"), "- Select Price Valid Date -", htmlAttributes: new { id = "ddlPriceDate", @class = "form-control select2" })
+                                        </label>
+                                    </div>
+                                </div>
+                            </section>
+                            <section>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        Product Keyword
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label class="input">
+                                            @Html.TextBox("ProductKeyword", null, new { @class = "form-control" })
+                                        </label>
+                                    </div>
+                                </div>
+                            </section>
+                            <section>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        Max Record
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <select class="form-control select2" id="MaxRecord">
+                                            <option>0</option>
+                                            <option>20</option>
+                                            <option>50</option>
+                                            <option>100</option>
+                                            <option>200</option>
+                                            <option>300</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="col-md-2">
+                            <section>
+                                <div class="row">
+                                    Select Price Group
+                                </div>
+                            </section>
+                            <section>
+                                <div id="divPriceGroup" class="row">
+                                    @foreach (var item in Model.pricegroup_list)
+                                    {
+                                        <label>
+                                            <input id="chkPrdGrp@(item.ProductPriceGroupID)"
+                                                   type="checkbox"
+                                                   checked="checked"
+                                                   value="@item.ProductPriceGroupID" />
+                                            @item.ProductPriceName
+                                        </label>
+                                        <br />
+                                    }
+                                </div>
+                            </section>
+                        </div>
+                        <div class="col-md-2">
+                            <section>
+                                <div class="row">
+                                    Select Sale Mode
+                                </div>
+                            </section>
+                            <section>
+                                <div id="divSalemode" class="row">
+                                    @foreach (var item in Model.salemode_data)
+                                    {
+                                        <label>
+                                            <input id="chkSalemode@(item.SaleModeID)"
+                                                   type="checkbox"
+                                                   checked="checked"
+                                                   value="@item.SaleModeID" />
+                                            @item.SaleModeName
+                                        </label>
+                                        <br />
+                                    }
+                                </div>
+                            </section>
+                        </div>
+                        <div class="col-md-2">
+                            <section>
+                                <div class="row">
+                                    Select Product Group
+                                </div>
+                            </section>
+                            <section>
+                                <div id="selectPrdGrp" class="row">
+
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1" style="margin-bottom:10px">
+                            <input type="submit" value="Set Product Price" class="btn btn-primary" onclick="GetSaleModeList()" />
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+        <div class="row">
+            <article class="col-sm-12">
+                <div class="jarviswidget jarviswidget-color-darken" id="wid-id-1" data-widget-editbutton="false">
+                    <div>
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <div class="widget-body no-padding">
+                            <table class="table table-striped table-bordered table-hover" style="width:100%" id="table_basic"></table>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-1">
+                                @if (ViewBag.CanUpdate)
+                                {
+                                    <input type="submit" value="Save All" class="btn btn-primary" onclick="SaveProductPrices()" />
+                                }
+                            </div>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+
+            </article>
+        </div>
+    </section>
+
+</div>
+
+@section pagespecific {
+    <script type="text/javascript">
+
+        function GetBrandList(MerchantID) {
+            $.ajax({
+                "url": baseURL + "productprice/GetBrandList?MerchantID=" + MerchantID,
+                "type": "GET",
+                "dataType": "json",
+                success: function (data) {
+                    var output = '<option value="0"> Select Brand </option>';
+                    $.each(data, function (key, entry) {
+                        output += '<option value=' + entry.BrandID + '>' + entry.BrandName + '</option>';
+                    })
+                    $("#ddlBrand").html(output);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            });
+        }
+
+        function GetShopList(BrandID) {
+            $.ajax({
+                "url": baseURL + "productprice/GetMasterShopList?BrandID=" + BrandID,
+                "type": "GET",
+                "dataType": "json",
+                success: function (data) {
+                    var output = '<option value="0"> Select Shop </option>';
+                    $.each(data, function (key, entry) {
+                        output += '<option value=' + entry.ShopID + '>' + entry.ShopName + '</option>';
+                    })
+                    $("#ddlShop").html(output);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            });
+        }
+
+        function GetProductGroupList(MasterShopID) {
+            $.ajax({
+                "url": baseURL + "productprice/GetPrdGroupByMasterShop?MasterShopId=" + MasterShopID,
+                "type": "GET",
+                "dataType": "json",
+                success: function (data) {
+                    var output = '';
+                    $.each(data, function (key, entry) {
+                        output += ' <label><input id="chkPrdGrp' + entry.ProductGroupID + '" type="checkbox" checked="true" value="' + entry.ProductGroupID + '" /> ' + entry.ProductGroupName + '</label><br />';
+                    })
+                    $("#selectPrdGrp").html(output);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            });
+        }
+
+        function GetSaleModeList() {
+            var shop_id = $("#ddlShop").val();
+            var shop_name = $("#ddlShop option:selected").text();
+            var maxrecord = $("#MaxRecord option:selected").text();
+            var txtFilter = $("#ProductKeyword").val();
+
+            var checkListPriceGrp = document.getElementById('divPriceGroup');
+            var PriceGrpList = checkListPriceGrp.getElementsByTagName("input");
+            var PriceGrpselected = '';
+            for (var i = 0; i < PriceGrpList.length; i++) {
+                if (PriceGrpList[i].checked) {
+                    PriceGrpselected += PriceGrpList[i].value + ",";
+                }
+            }
+            PriceGrpselected = PriceGrpselected.substring(0, PriceGrpselected.length - 1);
+
+            var PriceDateid = document.getElementById("ddlPriceDate").value;
+            var checkListSalemode = document.getElementById('divSalemode');
+            var SalemodeList = checkListSalemode.getElementsByTagName("input");
+            var Salemodeselected = '';
+            for (var i = 0; i < SalemodeList.length; i++) {
+                if (SalemodeList[i].checked) {
+                    Salemodeselected += SalemodeList[i].value + ",";
+                }
+            }
+            Salemodeselected = Salemodeselected.substring(0, Salemodeselected.length - 1);
+
+            var checkListPrdGrp = document.getElementById('selectPrdGrp');
+            var PrdGrpList = checkListPrdGrp.getElementsByTagName("input");
+            var PrdGrpselected = '';
+            for (var i = 0; i < PrdGrpList.length; i++) {
+                if (PrdGrpList[i].checked) {
+                    PrdGrpselected += PrdGrpList[i].value + ",";
+                }
+            }
+            PrdGrpselected = PrdGrpselected.substring(0, PrdGrpselected.length - 1);
+
+            $.ajax({
+                "url": baseURL + "productprice/GetTablePriceList",
+                "type": "GET",
+                "data": { 'ShopId': shop_id, 'maxRecords': maxrecord, 'productName': txtFilter, 'priceGroupList': PriceGrpselected, 'dateGroupList': PriceDateid, 'SalemodeList': Salemodeselected, 'productGroupList': PrdGrpselected },
+                "dataType": "json",
+                success: function (data) {
+                    //build table
+                    $("#table_basic tr").remove();
+                    var table = document.getElementById('table_basic');
+                    var tableBody = document.createElement('tbody');
+                    table.appendChild(tableBody);
+
+                    var tr = document.createElement('tr');
+                    tableBody.appendChild(tr);
+
+                    var th = document.createElement('th');
+                    th.rowSpan = "2";
+                    th.textContent = "Product Code";
+                    th.classList.add("col-custom-header");
+                    tr.appendChild(th);
+
+                    var th = document.createElement('th');
+                    th.rowSpan = "2";
+                    th.textContent = "Product Name";
+                    th.classList.add("col-custom-header");
+                    tr.appendChild(th);
+
+                    var th = document.createElement('th');
+                    th.colSpan = data.salemode_data.length;
+                    th.textContent = shop_name;
+                    th.classList.add("col-custom-header");
+                    tr.appendChild(th);
+
+                    //Fill Products
+                    for (var r = -1; r < data.productsonly_list.length; r++) {
+
+                        var tr = document.createElement('tr');
+                        tableBody.appendChild(tr);
+                        for (var c = -1; c < data.salemode_data.length; c++) {
+
+                            if (r == -1 && c > -1) {
+                                //Create Header Salemode
+                                var th = document.createElement('th');
+                                th.textContent = data.salemode_data[c].SaleModeName;
+                                th.classList.add("col-custom-" + c);
+                                tr.appendChild(th);
+                            }
+                            else if (r > -1) {
+                                if (c == -1) {
+                                    //Tulis Product Code dan Product Name
+                                    var td = document.createElement('td');
+                                    td.textContent = data.productsonly_list[r].ProductCode;
+                                    tr.appendChild(td);
+
+                                    var td = document.createElement('td');
+                                    td.textContent = data.productsonly_list[r].ProductName;
+                                    tr.appendChild(td);
+                                }
+                                else {
+                                    //Cari dari data product berdasarkan salemode
+                                    var salemodeid = data.salemode_data[c].SaleModeID;
+                                    var productid = data.productsonly_list[r].ProductID;
+                                    var product = data.productprice_list.filter(element => element.SaleMode == salemodeid && element.ProductId == productid && element.ProductPriceDateId == PriceDateid);
+
+                                    var price = 0;
+                                    if (product.length > 0)
+                                        price = product[0].ProductPrice;
+                                    var txtbox = document.createElement("INPUT");
+                                    txtbox.setAttribute("type", "number");
+                                    txtbox.id = productid + "-" + salemodeid;
+                                    if (price > 0) { txtbox.value = price; }
+                                    var td = document.createElement('td');
+                                    txtbox.classList.add("col-textbox");
+                                    td.appendChild(txtbox);
+                                    td.classList.add("col-custom-" + c);
+                                    tr.appendChild(td);
+                                }
+                            }
+                        }
+
+                    }
+                },
+                error: function (err) {
+                    swal("ERROR", "Err: " + err, "error");
+                }
+            });
+        }
+
+        function SaveProductPrices() {
+            var row = document.getElementById("table_basic");
+            var list = new Array();
+
+            $("#table_basic").find('INPUT').each(function (i) {
+                var txtbox = $(this);
+                //FirstName = FirstName + ',' + $('input:text:eq(0)', $fieldset).val();
+                var id = txtbox[0].id;
+                var value = txtbox[0].value;
+                var shopid = document.getElementById("ddlShop").value;
+                var PriceDateid = document.getElementById("ddlPriceDate").value;
+
+                var checkListPriceGrp = document.getElementById('divPriceGroup');
+                var PriceGrpList = checkListPriceGrp.getElementsByTagName("input");
+                var PriceGrpselected = '';
+                for (var i = 0; i < PriceGrpList.length; i++) {
+                    if (PriceGrpList[i].checked) {
+                        PriceGrpselected += PriceGrpList[i].value + ",";
+                    }
+                }
+
+                var item = {
+                    'DataID': id,
+                    'Price': value,
+                    'ShopID': shopid,
+                    'PriceGroupDateID': PriceDateid,
+                    'PriceGroupID': PriceGrpselected
+                };
+                list.push(item);
+            });
+            swal.showLoading()
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(list),
+                url: baseURL + "productprice/SaveAllPrice",
+                success: function (data) {
+                    if (data == "1") {
+                        swal.close();
+                        swal("SUCCESS", "Data Successfully Saved", "success");
+                    }
+                    else {
+                        swal.close();
+                        swal("ERROR", "Failed Save Data: " + data, "error");
+                    }
+                },
+            });
+        }
+    </script>
+}

@@ -1,0 +1,211 @@
+﻿@model List<RINOR_POS.Models.productItemViewModel>
+
+@{
+    ViewBag.Title = "Product Up Size";
+}
+
+<div id="content">
+    <div class="row">
+        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+            <h1 class="page-title txt-color-blueDark">
+
+                <!-- PAGE HEADER -->
+                <i class="fa-fw fa fa-pencil-square-o"></i>
+                Product
+                <span>
+                    >
+                    Size Data
+                </span>
+            </h1>
+        </div>
+    </div>
+
+    <section id="widget-grid" class="">
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="jarviswidget" id="wid-id-3" data-widget-editbutton="false" data-widget-custombutton="false" data-widget-togglebutton="false" data-widget-collapsed="false">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <h2>Product Size </h2>
+                    </header>
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+
+                            @using (Html.BeginForm("Size", "productitem", FormMethod.Post, htmlAttributes: new { @class = "smart-form", enctype = "multipart/form-data" }))
+                            {
+                                <header>
+                                    Product Size Form
+                                </header>
+
+                                <fieldset>
+                                    <fieldset>
+                                        @Html.AntiForgeryToken()
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        <br />
+                                        @Html.HiddenFor(model => model[0].ProductID, new { id = "ProductID" })
+
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    Product Name
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model[0].ProductName, new { htmlAttributes = new { @class = "form-control col-lg-6", @readonly = "readonly" } })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <section>
+                                                <div class="row">
+                                                    <div class="col-md-1">
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        Size Name
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <input id="SizeName" class="form-control" type="text" />
+                                                    </div>
+                                                </div>
+                                            </section>
+                                            <section>
+                                                <div class="row">
+                                                    <div class="col-md-1">
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        Additional Price
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input id="AddPrice" class="form-control text-right" type="number" />
+                                                    </div>
+                                                </div>
+                                            </section>
+                                            <section>
+                                                <div class="row">
+                                                    <div class="col-md-1"></div>
+                                                    <div class="col-md-2">
+                                                        <input type="button" class="btn btn-primary" onclick="AddSize()" value="Add Size" />
+                                                    </div>
+                                                </div>
+                                            </section>
+                                            <br />
+                                            <section>
+                                                <div class="col-md-1"></div>
+                                                <div class="col-md-8">
+                                                    <table id="TableUpsize" width="70%" class="table table-striped table-bordered table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Size</th>
+                                                                <th>Additional Price</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @{
+                                                                int i = 0;
+                                                                foreach (var item in Model)
+                                                                {
+                                                                    if (item.Size != null)
+                                                                    {
+                                                                        <tr>
+                                                                            <td>
+                                                                                @Html.EditorFor(modelItem => modelItem[i].Size, new { htmlAttributes = new { @id = "size_" + i, @class = "form-control", @readonly = "readonly" } })
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.EditorFor(modelItem => modelItem[i].AdditionalPrice, new { htmlAttributes = new { @id = "price_" + i, @class = "form-control", @readonly = "readonly" } })
+                                                                            </td>
+                                                                            <td>
+                                                                                <button value="@item.ProductSizeId" onclick="Remove(this, value)" class="btn btn-danger btn-sm">Remove</button>
+                                                                            </td>
+                                                                        </tr>
+                                                                        i++;
+                                                                    }
+                                                                }
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </section>
+                                        </section>
+                                        <br />
+                                    </fieldset>
+                                </fieldset>
+
+                                <footer>
+                                    <div class="form-group">
+                                        <div class="col-md-6">
+                                            @Html.ActionLink("Close", "Index", "productitem", new { id = Model[0].ProductDeptID }, htmlAttributes: new { @class = "btn btn-default" })
+                                            @*<input type="submit" value="Save" class="btn btn-primary" />*@
+                                        </div>
+                                    </div>
+                                </footer>
+                                                                }
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>
+
+@section pagespecific {
+    <script type="text/javascript">
+        function AddSize() {
+            var index = $('#TableUpsize tr').length - 1;
+            var productid = document.getElementById("ProductID").value;
+            var val1 = document.getElementById("SizeName").value;
+            var val2 = document.getElementById("AddPrice").value;
+            if (val1 != "" && val2 != "") {
+                var col1 = '<input class = "form-control" id="size_' + index + ' name="productsize_selected[' + index + '].Size" type="text" value="' + val1 + '" readonly />';
+                var col2 = '<input class = "form-control" id="price_' + index + ' name="productsize_selected[' + index + '].AdditionalPrice" type="text" value="' + val2 + '" readonly />';
+
+                $.ajax({
+                    type: "GET",
+                    url: baseURL + "productitem/SizeChange?ProductId=" + productid + "&Size=" + val1 + "&Price=" + val2,
+                    success: function (data) {
+                        swal("SUCCESS", "Data Successfully Inserted", "success");
+                        $('#TableUpsize').append('<tr><td>' + col1 + '</td><td>' + col2 + '</td><td><button value="' + data + '" onclick="Remove(this, value)" class="btn btn-danger btn-sm">Remove</button></td></tr>');
+                    },
+                });
+
+                document.getElementById("SizeName").value = "";
+                document.getElementById("AddPrice").value = "";
+            }
+        };
+        function Remove(button, id) {
+            //Determine the reference of the Row using the Button.
+            var row = $(button).closest("TR");
+            var name = $("TD", row).eq(0).html();
+            var table = $("#TableUpsize")[0];
+
+            //Delete the Table row using it's Index.
+            table.deleteRow(row[0].rowIndex);
+
+            $.ajax({
+                type: "GET",
+                url: baseURL + "productitem/SizeDelete?ProductSizeID=" + id,
+                success: function (data) {
+                    if (data == "1") {
+                        swal("SUCCESS", "Data Successfully Deleted", "success");
+                    }
+                    else {
+                        alert("Failed Delete Data");
+                    }
+
+                },
+            });
+        };
+    </script>
+}

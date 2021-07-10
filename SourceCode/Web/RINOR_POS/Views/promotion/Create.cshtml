@@ -1,0 +1,524 @@
+﻿@model RINOR_POS.Models.promotionViewModel
+
+@{
+    ViewBag.Title = "Promotion";
+}
+
+<style>
+    /* Tooltip container */
+    .tooltip {
+        position: relative;
+        display: inline-block;
+        border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+    }
+
+        /* Tooltip text */
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            padding: 5px 0;
+            border-radius: 6px;
+            /* Position the tooltip text - see examples below! */
+            position: absolute;
+            z-index: 1;
+        }
+
+        /* Show the tooltip text when you mouse over the tooltip container */
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+        }
+</style>
+
+<div id="content">
+    <div class="row">
+        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+            <h1 class="page-title txt-color-blueDark">
+
+                <!-- PAGE HEADER -->
+                <i class="fa-fw fa fa-pencil-square-o"></i>
+                Promotion
+                <span>
+                    >
+                    New Data
+                </span>
+            </h1>
+        </div>
+    </div>
+
+    <section id="widget-grid" class="">
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="jarviswidget" id="wid-id-3" data-widget-editbutton="false" data-widget-custombutton="false" data-widget-togglebutton="false" data-widget-collapsed="false">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <h2>Promotion </h2>
+                    </header>
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+
+                            @using (Html.BeginForm("Create", "promotion", FormMethod.Post, htmlAttributes: new { @class = "smart-form", enctype = "multipart/form-data" }))
+                            {
+                                <header>
+                                    New Data Form
+                                </header>
+
+                                <fieldset>
+                                    <fieldset>
+                                        @Html.AntiForgeryToken()
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        <br />
+                                        @Html.HiddenFor(model => model.PromotionID)
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelRequiredFor(model => model.PromotionType, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <label class="input">
+                                                        @Html.DropDownListFor(model => model.PromotionType, new SelectList(Model.PromotionTypeList, "PromotionTypeId", "PromotionType"), "- Select Promotion Type -", htmlAttributes: new { @class = "form-control select2" })
+                                                        @Html.ValidationMessageFor(model => model.PromotionType, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelRequiredFor(model => model.IsAutomation, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <span class="onoffswitch-title"></span> <span class="onoffswitch">
+                                                        <input type="checkbox" name="IsAutomation" id="IsAutomation" class="onoffswitch-checkbox" value="true" @(Model.IsAutomation.GetValueOrDefault() ? "checked=\"checked\"" : "") />
+                                                        <label class="onoffswitch-label" for="IsAutomation">
+                                                            <span class="onoffswitch-inner" data-swchon-text="Yes" data-swchoff-text="No"></span>
+                                                            <span class="onoffswitch-switch"></span>
+                                                        </label>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelRequiredFor(model => model.PromotionCode, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.PromotionCode, new { htmlAttributes = new { @class = "form-control col-lg-6", placeholder = "Promotion Code" } })
+                                                        @Html.ValidationMessageFor(model => model.PromotionCode, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelRequiredFor(model => model.PromotionName, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.PromotionName, new { htmlAttributes = new { @class = "form-control col-lg-6", placeholder = "Promotion Name" } })
+                                                        @Html.ValidationMessageFor(model => model.PromotionName, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelRequiredFor(model => model.BeginDate, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label class="input-group">
+                                                        @{var BeginDate = string.Format("{0:dd-MM-yyyy}", Model.BeginDate); }
+                                                        @Html.EditorFor(model => BeginDate, new { htmlAttributes = new { @class = "form-control", placeholder = "DD-MM-YYYY", id = "BeginDate" } })
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                    </label>
+                                                    @Html.ValidationMessageFor(model => model.BeginDate, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelRequiredFor(model => model.ExpiredDate, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label class="input-group">
+                                                        @{var ExpiredDate = string.Format("{0:dd-MM-yyyy}", Model.ExpiredDate); }
+                                                        @Html.EditorFor(model => ExpiredDate, new { htmlAttributes = new { @class = "form-control", placeholder = "DD-MM-YYYY", id = "ExpiredDate" } })
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                    </label>
+                                                    @Html.ValidationMessageFor(model => model.ExpiredDate, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelRequiredFor(model => model.TimeStart, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <label class="input-group">
+                                                        @{var TimeStart = string.Format(@"{0:hh\:mm}", Model.TimeStart); }
+                                                        @Html.EditorFor(model => TimeStart, new { htmlAttributes = new { @class = "form-control text-center clockpicker", placeholder = "HH:mm", id = "TimeStart" } })
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-time"></span>
+                                                        </span>
+                                                        @Html.ValidationMessageFor(model => model.TimeStart, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                                <div class="col-sm-1 text-center">To</div>
+                                                <div class="col-md-1">
+                                                    <label class="input-group">
+                                                        @{var TimeFinish = string.Format(@"{0:hh\:mm}", Model.TimeFinish); }
+                                                        @Html.EditorFor(model => TimeFinish, new { htmlAttributes = new { @class = "form-control text-center clockpicker", placeholder = "HH:mm", id = "TimeFinish" } })
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-time"></span>
+                                                        </span>
+                                                    </label>
+                                                    @Html.ValidationMessageFor(model => model.TimeFinish, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.EffectTo, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="input">
+                                                        @Html.DropDownList("EffectTo", new List<SelectListItem>
+                                                    {
+                                                    new SelectListItem{ Text="Product Price", Value = "ProductPrice" },
+                                                    new SelectListItem{ Text="Payment", Value = "Payment" },
+                                                    new SelectListItem{ Text="Pay Amount", Value = "PayAmount" },
+                                                    new SelectListItem{ Text="Total Discount", Value = "TotalDiscount" }
+                                                    }, htmlAttributes: new { @id = "ddlEffectTo", @class = "form-control select2" })
+                                                    </label>
+                                                    @Html.ValidationMessageFor(model => model.EffectTo, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.PromotionPrice, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <label class="input">
+                                                        <i class="icon-append fa fa-question-circle"></i>
+                                                        @Html.EditorFor(model => model.PromotionPrice, "1", new { htmlAttributes = new { @class = "form-control", placeholder = "Promotion Price" } })
+                                                        <b class="tooltip tooltip-right">used for promotion package product</b>
+                                                        @Html.ValidationMessageFor(model => model.PromotionPrice, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.PromotionVAT, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <label class="input">
+                                                        <i class="icon-append fa fa-question-circle"></i>
+                                                        @Html.EditorFor(model => model.PromotionVAT, "1", new { htmlAttributes = new { @class = "form-control", placeholder = "Promotion VAT" } })
+                                                        <b class="tooltip tooltip-right">used for promotion package product</b>
+                                                        @Html.ValidationMessageFor(model => model.PromotionVAT, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.PromotionServiceCharge, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <label class="input">
+                                                        <i class="icon-append fa fa-question-circle"></i>
+                                                        @Html.EditorFor(model => model.PromotionServiceCharge, "1", new { htmlAttributes = new { @class = "form-control", placeholder = "Promotion Service Charge" } })
+                                                        <b class="tooltip tooltip-right">used for promotion package product</b>
+                                                        @Html.ValidationMessageFor(model => model.PromotionServiceCharge, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.NoPrintCopy, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.NoPrintCopy, "1", new { htmlAttributes = new { @class = "form-control", placeholder = "Print Copy" } })
+                                                        @Html.ValidationMessageFor(model => model.NoPrintCopy, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.Priority, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.Priority, "1", new { htmlAttributes = new { @class = "form-control", placeholder = "Priority" } })
+                                                        @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.PeriodCondition, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <label class="radio">
+                                                        @Html.RadioButtonFor(model => model.PeriodCondition, "0", new { id = "NoneCondition" })
+                                                        <i></i>None
+                                                    </label>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <label class="radio">
+                                                        @Html.RadioButtonFor(model => model.PeriodCondition, "1", new { id = "WeeklyCondition" })
+                                                        <i></i>Weekly
+                                                    </label>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <label class="radio">
+                                                        @Html.RadioButtonFor(model => model.PeriodCondition, "2", new { id = "MonthlyCondition" })
+                                                        <i></i>Monthly
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div id="weekly" hidden="hidden">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                    </div>
+                                                    <div class="col-sm-1">
+                                                        <label class="checkbox">
+                                                            @Html.CheckBoxFor(model => model.Sunday)
+                                                            <i></i> Sunday
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-sm-1">
+                                                        <label class="checkbox">
+                                                            @Html.CheckBoxFor(model => model.Monday)
+                                                            <i></i> Monday
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-sm-1">
+                                                        <label class="checkbox">
+                                                            @Html.CheckBoxFor(model => model.Tuesday)
+                                                            <i></i> Tuesday
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <label class="checkbox">
+                                                            @Html.CheckBoxFor(model => model.Wednesday)
+                                                            <i></i> Wednesday
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-3"></div>
+                                                    <div class="col-sm-1">
+                                                        <label class="checkbox">
+                                                            @Html.CheckBoxFor(model => model.Thursday)
+                                                            <i></i>Thursday
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-sm-1">
+                                                        <label class="checkbox">
+                                                            @Html.CheckBoxFor(model => model.Friday)
+                                                            <i></i>Friday
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-sm-1">
+                                                        <label class="checkbox">
+                                                            @Html.CheckBoxFor(model => model.Saturday)
+                                                            <i></i>Saturday
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row" id="monthly" hidden="hidden">
+                                                <div class="col-md-3">
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <table>
+                                                        @for (int w = 7; w < 36; w += 7)
+                                                        {
+                                                            <tr>
+                                                                @for (int d = w - 6; d <= w && d < 32; d++)
+                                                                {
+                                                                    <td style="width:50px;  height:50px; border:solid; border-width:3px; border-color:white; border-radius:5px; margin:15px; padding:5px; background-color:lightgray;">
+                                                                        <label class="container-box" style="padding-left:35px">
+                                                                            @d
+                                                                            <input name="day_selected" id=@d type="checkbox" value=@d /><span class="checkmark"></span>
+                                                                        </label>
+                                                                    </td>
+                                                                }
+                                                            </tr>
+                                                        }
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <span class="onoffswitch-title"></span> <span class="onoffswitch">
+                                                        <input type="checkbox" name="IsActive" id="IsActive" class="onoffswitch-checkbox" value="true" @(Model.IsActive ? "checked=\"checked\"" : "") />
+                                                        <label class="onoffswitch-label" for="IsActive">
+                                                            <span class="onoffswitch-inner" data-swchon-text="Yes" data-swchoff-text="No"></span>
+                                                            <span class="onoffswitch-switch"></span>
+                                                        </label>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.PrintSignature, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <span class="onoffswitch-title"></span> <span class="onoffswitch">
+                                                        <input type="checkbox" name="PrintSignature" id="PrintSignature" class="onoffswitch-checkbox" value="true" @(Model.PrintSignature.GetValueOrDefault() ? "checked=\"checked\"" : "") />
+                                                        <label class="onoffswitch-label" for="PrintSignature">
+                                                            <span class="onoffswitch-inner" data-swchon-text="Yes" data-swchoff-text="No"></span>
+                                                            <span class="onoffswitch-switch"></span>
+                                                        </label>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </fieldset>
+                                </fieldset>
+
+                                <footer>
+                                    <div class="form-group">
+                                        <div class="col-md-7">
+                                            @Html.ActionLink("Cancel", "Index", "promotion", htmlAttributes: new { @class = "btn btn-default" })
+                                            <input type="submit" value="Save" class="btn btn-primary" />
+                                        </div>
+                                    </div>
+                                </footer>
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>
+@section pagespecific {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#BeginDate').datepicker({
+                dateFormat: 'dd-mm-yy',
+                prevText: '<i class="fa fa-chevron-left"></i>',
+                nextText: '<i class="fa fa-chevron-right"></i>',
+                changeMonth: true,
+                changeYear: true
+            });
+            $('#ExpiredDate').datepicker({
+                dateFormat: 'dd-mm-yy',
+                prevText: '<i class="fa fa-chevron-left"></i>',
+                nextText: '<i class="fa fa-chevron-right"></i>',
+                changeMonth: true,
+                changeYear: true
+            });
+            $('.clockpicker').clockpicker({
+                placement: 'top',
+                align: 'left',
+                autoclose: 'true'
+            });
+        });
+
+        document.getElementById("NoneCondition").onclick = function () {
+            var radioValue = $("input[id='NoneCondition']:checked").val();
+            if (radioValue) {
+                document.getElementById("weekly").style.display = "none";
+                document.getElementById("monthly").style.display = "none";
+            }
+        }
+
+        document.getElementById("WeeklyCondition").onclick = function () {
+            var radioValue = $("input[id='WeeklyCondition']:checked").val();
+            if (radioValue) {
+                document.getElementById("weekly").style.display = "block";
+                document.getElementById("monthly").style.display = "none";
+            }
+        }
+
+        document.getElementById("MonthlyCondition").onclick = function () {
+            var radioValue = $("input[id='MonthlyCondition']:checked").val();
+            if (radioValue) {
+                document.getElementById("weekly").style.display = "none";
+                document.getElementById("monthly").style.display = "block";
+            }
+        }
+    </script>
+}

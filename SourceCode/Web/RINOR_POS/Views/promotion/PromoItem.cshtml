@@ -1,0 +1,583 @@
+﻿@model RINOR_POS.Models.promotionproductViewModel
+
+@{
+    ViewBag.Title = "Promotion Item";
+}
+
+<div id="content">
+    <div class="row">
+        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+            <h1 class="page-title txt-color-blueDark">
+
+                <!-- PAGE HEADER -->
+                <i class="fa-fw fa fa-pencil-square-o"></i>
+                @Model.PromotionTypeName
+                <span>
+                    >
+                    @Model.PromotionName
+                </span>
+            </h1>
+        </div>
+    </div>
+
+    <section id="widget-grid" class="">
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="jarviswidget" id="wid-id-3" data-widget-editbutton="false" data-widget-custombutton="false" data-widget-togglebutton="false" data-widget-collapsed="false">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <h2>Promotion Item</h2>
+                    </header>
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+
+                            @using (Html.BeginForm("PromoItem", "promotion", FormMethod.Post, htmlAttributes: new { @class = "smart-form", enctype = "multipart/form-data" }))
+                            {
+                                <fieldset style="align-items:flex-end">
+                                    <a class="btn btn-default btn-sm pull-right header-btn hidden-mobile" href="@Url.Action("Index", "promotion", Request.Url.Scheme)"><i class='fa fa-arrow-circle-left'></i> Back</a>
+                                </fieldset>
+                                <fieldset>
+                                    <section>
+                                        <div class="row">
+                                            <div class="col-md-1">
+                                            </div>
+                                            <div class="col-md-2">
+                                                Select Product From
+                                            </div>
+                                            <div class="col-lg-8">
+                                                <label class="input">
+                                                    @Html.DropDownList("ProductFrom", new List<SelectListItem>
+                                                {
+                                                new SelectListItem{ Text="Product Group", Value = "Group" },
+                                                new SelectListItem{ Text="Product Dept", Value = "Dept" },
+                                                new SelectListItem{ Text="Product", Value = "Product" },
+                                                new SelectListItem{ Text="Product Code", Value = "Code" },
+                                                new SelectListItem{ Text="Product Barcode", Value = "Barcode" }
+                                                }, htmlAttributes: new { @id = "ddlProductFrom", @class = "form-control select2", onclick = "ChangeFlagSave()", onchange = "submit()" })
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </fieldset>
+                                <fieldset>
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    @Html.HiddenFor(model => model.PromotionID)
+                                    @Html.HiddenFor(model => model.flagSave, new { @id = "flagSave" })
+
+                                    <section>
+                                        <div class="col-md-6">
+                                            @if (Model.ProductFrom == "Group" || Model.ProductFrom == "Dept" || Model.ProductFrom == "Product")
+                                            {
+                                                <div class="row">
+                                                    <div class="col-md-1">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        @Html.LabelRequiredFor(model => model.MasterShopID, htmlAttributes: new { @class = "control-label" })
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <label class="input">
+                                                            @Html.DropDownListFor(model => model.MasterShopID, new SelectList(Model.MasterShopList, "ShopID", "ShopName"), "- Select Master Shop -", htmlAttributes: new { @id = "ddlShop", @class = "form-control select2", @onChange = "GetProductGroupList(this.value)" })
+                                                            @Html.ValidationMessageFor(model => model.MasterShopID, "", new { @class = "text-danger" })
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                                <div class="row">
+                                                    <div class="col-md-1">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        @Html.LabelRequiredFor(model => model.ProductGroupID, htmlAttributes: new { @class = "control-label" })
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <label class="input">
+                                                            @Html.DropDownListFor(model => model.ProductGroupID, new SelectList(Model.ProductGroupList, "ProductGroupID", "ProductGroupName"), "- Select Product Group -", htmlAttributes: new { @id = "ddlGroup", @class = "form-control select2", @onChange = "GetProductDeptList(this.value)" })
+                                                            @Html.ValidationMessageFor(model => model.ProductGroupID, "", new { @class = "text-danger" })
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                            }
+
+                                            @if (Model.ProductFrom == "Dept" || Model.ProductFrom == "Product")
+                                            {
+                                                <div class="row">
+                                                    <div class="col-md-1">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        @Html.LabelRequiredFor(model => model.ProductDeptID, htmlAttributes: new { @class = "control-label" })
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <label class="input">
+                                                            @Html.DropDownListFor(model => model.ProductDeptID, new SelectList(Model.ProductDeptList, "ProductDeptID", "ProductDeptName"), "- Select Product Dept -", htmlAttributes: new { @id = "ddlDept", @class = "form-control select2", @onChange = "GetProductList(this.value)" })
+                                                            @Html.ValidationMessageFor(model => model.ProductDeptID, "", new { @class = "text-danger" })
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <br />
+                                            }
+
+                                            @if (Model.ProductFrom == "Product")
+                                            {
+                                                <div class="row">
+                                                    <div class="col-md-1">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        @Html.LabelRequiredFor(model => model.ProductID, htmlAttributes: new { @class = "control-label" })
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div>
+                                                            <label class="input-group">
+                                                                <input type="text" class="form-control" id="txtprodsearch" onkeyup="SearchProduct()" placeholder="Search for Product" />
+                                                                <span class="input-group-addon">
+                                                                    <span class="glyphicon glyphicon-search"></span>
+                                                                </span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="box-scroll" id="chkBoxProduct">
+                                                        </div>
+                                                        @Html.ValidationMessageFor(model => model.ProductID, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <br />
+                                            }
+
+                                            @if (Model.ProductFrom == "Code" || Model.ProductFrom == "Barcode")
+                                            {
+                                                <div class="row">
+                                                    <div class="col-md-1">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>Product @Model.ProductFrom</label>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <label class="input">
+                                                            @Html.TextAreaFor(model => model.ProductCode, htmlAttributes: new { @id = "txtProductCode", @class = "form-control", @style = "height:150px" })
+                                                        </label>
+                                                        <label>Separate multiple product using the comma(,) character.</label>
+                                                        @Html.ValidationMessageFor(model => model.ProductCode, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    @Html.LabelRequiredFor(model => model.SaleModeID, htmlAttributes: new { @class = "control-label" })
+                                                    @Html.ValidationMessageFor(model => model.SaleModeID, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="col-md-7 box-scroll">
+                                                    @foreach (var item in Model.SalemodeList)
+                                                    {
+                                                        <label class="container-box" style="padding-left:35px;margin-left:4px; margin-top:2px">
+                                                            <input id="chkSalemode@(item.SaleModeID)"
+                                                                   type="checkbox"
+                                                                   name="sale_mode_selected"
+                                                                   value="@item.SaleModeID" /><span class="checkmark"></span>
+                                                            @item.SaleModeName
+                                                        </label>
+                                                        <br />
+                                                    }
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    @Html.LabelFor(model => model.DiscountAmount, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-md-3">
+                                                    @Html.EditorFor(model => model.DiscountAmount, "1", new { htmlAttributes = new { @class = "form-control", placeholder = "Disc Amount" } })
+                                                    @Html.ValidationMessageFor(model => model.DiscountAmount, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label class="input">
+                                                        @Html.DropDownList("DiscountType", new List<SelectListItem>
+                                                    {
+                                                    new SelectListItem{ Text="Discount(%)", Value = "Percent" },
+                                                    new SelectListItem{ Text="Discount(Rp)", Value = "DiscountRp" },
+                                                    new SelectListItem{ Text="Sale Price", Value = "SalePrice" }
+                                                    }, htmlAttributes: new { @id = "ddlDiscountType", @class = "form-control select2" })
+                                                    </label>
+                                                    @Html.ValidationMessageFor(model => model.DiscountType, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+
+                                </fieldset>
+                                <fieldset>
+                                    <div class="form-group">
+                                        <div class="col-md-7">
+
+                                            @*@if (Model.ProductFrom != "Product")
+                                                {
+                                                    <input id="btnDeleteAll" type="submit" value="Delete Product @Model.ProductFrom" style="margin-right:5px" class="btn btn-danger pull-right btn-sm" />
+                                                }
+                                                else
+                                                {
+                                                    <input id="btnDeleteAll" type="submit" value="Delete @Model.ProductFrom" style="margin-right:5px" class="btn btn-danger pull-right btn-sm" />
+                                                }*@
+                                            <input type="submit" value="Save" style="width:80px; margin:0px 20px 20px 0px" onclick="ClickSave()" class="btn btn-primary pull-right btn-sm" />
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <section>
+                                        <div id="divtable" class="col-md-12" style="overflow:auto;height:500px">
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-10">
+                                                <div class="widget-body no-padding">
+                                                    <br />
+                                                    <table class="table table-striped table-bordered table-hover" id="table_basic">
+                                                        <thead>
+                                                            <tr>
+                                                                <th hidden="hidden"></th>
+                                                                <th style="width:60%; text-align:center">
+                                                                    Discount Item
+                                                                </th>
+                                                                <th style="width:15%">
+                                                                    Discount Amount
+                                                                </th>
+                                                                <th style="width:15%">
+                                                                    Discount Type
+                                                                </th>
+                                                                <th style="width:10%">
+                                                                    Action
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody>
+                                                            @{
+
+                                                                int i = 0;
+                                                                if (Model.ProductFrom == "Group")
+                                                                {
+                                                                    foreach (var GroupSaleMode in Model.PromoProductList.GroupBy(x => x.SaleModeID))
+                                                                    {
+                                                                        <tr style="background-color:lightgray">
+                                                                            <td colspan="4" style="padding-left:3%">
+                                                                                <label>Sale Mode: @GroupSaleMode.FirstOrDefault().SaleModeName</label>
+                                                                            </td>
+                                                                        </tr>
+
+                                                                        foreach (var item in GroupSaleMode)
+                                                                        {
+
+                                                                            <tr>
+                                                                                <td hidden="hidden">
+                                                                                    @Html.EditorFor(modelItem => item.PromotionProductID, new { htmlAttributes = new { @id = "PromotionProductID_" + i, @class = "form-control", @readonly = "readonly" } })
+                                                                                </td>
+                                                                                <td style="padding-left:3%">
+                                                                                    @if (item.ProductID != 0)
+                                                                                    {
+                                                                                        @Html.DisplayFor(modelItem => item.ProductName, new { htmlAttributes = new { @id = "ProductName_" + i, @class = "form-control" } })
+                                                                                    }
+                                                                                    else if (item.ProductDeptID != 0)
+                                                                                    {
+                                                                                        @Html.DisplayFor(modelItem => item.ProductDeptName, new { htmlAttributes = new { @id = "ProductDeptName_" + i, @class = "form-control" } })
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        @Html.DisplayFor(modelItem => item.ProductGroupName, new { htmlAttributes = new { @id = "ProductGroupName_" + i, @class = "form-control" } })
+                                                                                    }
+                                                                                </td>
+                                                                                <td>
+                                                                                    @if (item.DiscountAmount > 0)
+                                                                                    {
+                                                                                        @Html.DisplayFor(modelItem => item.DiscountAmount, new { htmlAttributes = new { @id = "DiscountAmount_" + i, @class = "form-control", @readonly = "readonly" } })
+                                                                                    }
+                                                                                    @if (item.DiscountPercentage > 0)
+                                                                                    {
+                                                                                        @Html.DisplayFor(modelItem => item.DiscountPercentage, new { htmlAttributes = new { @id = "DiscountPercentage_" + i, @class = "form-control", @readonly = "readonly" } })
+                                                                                    }
+                                                                                    @if (item.DiscountSalePrice > 0)
+                                                                                    {
+                                                                                        @Html.DisplayFor(modelItem => item.DiscountSalePrice, new { htmlAttributes = new { @id = "DiscountSalePrice_" + i, @class = "form-control", @readonly = "readonly" } })
+                                                                                    }
+                                                                                </td>
+                                                                                <td>
+                                                                                    @Html.DisplayFor(modelItem => item.DiscountType)
+                                                                                    @*@Html.DropDownListFor(modelItem => item.DiscountType, new SelectList(Model.DiscountTypeList, "DiscountTypeCode", "DiscountTypeName"), htmlAttributes: new { @id = "ddlDiscType_" + i, @class = "form-control select2" })*@
+                                                                                </td>
+                                                                                <td>
+                                                                                    <button value="@item.PromotionProductID" onclick="DeletePromoByID(value)" class="btn btn-danger btn-sm">Delete</button>
+                                                                                </td>
+                                                                            </tr>
+
+                                                                            i++;
+                                                                        }
+                                                                    }
+                                                                }
+                                                                else if (Model.ProductFrom == "Dept")
+                                                                {
+                                                                    foreach (var GroupSaleMode in Model.PromoProductList.GroupBy(x => x.SaleModeID))
+                                                                    {
+                                                                        <tr style="background-color:lightgray">
+                                                                            <td colspan="4" style="padding-left:3%">
+                                                                                <label>Sale Mode: @GroupSaleMode.FirstOrDefault().SaleModeName</label>
+                                                                            </td>
+                                                                        </tr>
+
+                                                                        foreach (var GroupProduct in GroupSaleMode.GroupBy(x => x.ProductGroupID))
+                                                                        {
+                                                                            <tr style="background-color:lightgray">
+                                                                                <td colspan="4" style="padding-left:6%">
+                                                                                    <label>Product Group Name: @GroupProduct.FirstOrDefault().ProductGroupName</label>
+                                                                                </td>
+                                                                            </tr>
+                                                                            foreach (var item in GroupProduct)
+                                                                            {
+                                                                                <tr>
+                                                                                    <td hidden="hidden">
+                                                                                        @Html.EditorFor(modelItem => item.PromotionProductID, new { htmlAttributes = new { @id = "PromotionProductID_" + i, @class = "form-control", @readonly = "readonly" } })
+                                                                                    </td>
+                                                                                    <td style="padding-left:6%">
+                                                                                        @if (item.ProductID != 0)
+                                                                                        {
+                                                                                            @Html.DisplayFor(modelItem => item.ProductName, new { htmlAttributes = new { @id = "ProductName_" + i, @class = "form-control" } })
+                                                                                        }
+                                                                                        else if (item.ProductDeptID != 0)
+                                                                                        {
+                                                                                            @Html.DisplayFor(modelItem => item.ProductDeptName, new { htmlAttributes = new { @id = "ProductDeptName_" + i, @class = "form-control" } })
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            @Html.DisplayFor(modelItem => item.ProductGroupName, new { htmlAttributes = new { @id = "ProductGroupName_" + i, @class = "form-control" } })
+                                                                                        }
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        @if (item.DiscountAmount > 0)
+                                                                                        {
+                                                                                            @Html.DisplayFor(modelItem => item.DiscountAmount, new { htmlAttributes = new { @id = "DiscountAmount_" + i, @class = "form-control", @readonly = "readonly" } })
+                                                                                        }
+                                                                                        @if (item.DiscountPercentage > 0)
+                                                                                        {
+                                                                                            @Html.DisplayFor(modelItem => item.DiscountPercentage, new { htmlAttributes = new { @id = "DiscountPercentage_" + i, @class = "form-control", @readonly = "readonly" } })
+                                                                                        }
+                                                                                        @if (item.DiscountSalePrice > 0)
+                                                                                        {
+                                                                                            @Html.DisplayFor(modelItem => item.DiscountSalePrice, new { htmlAttributes = new { @id = "DiscountSalePrice_" + i, @class = "form-control", @readonly = "readonly" } })
+                                                                                        }
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        @Html.DisplayFor(modelItem => item.DiscountType)
+                                                                                        @*@Html.DropDownListFor(modelItem => item.DiscountType, new SelectList(Model.DiscountTypeList, "DiscountTypeCode", "DiscountTypeName"), htmlAttributes: new { @id = "ddlDiscType_" + i, @class = "form-control select2" })*@
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <button value="@item.PromotionProductID" onclick="DeletePromoByID(value)" class="btn btn-danger btn-sm">Delete</button>
+                                                                                    </td>
+                                                                                </tr>
+
+                                                                                i++;
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    foreach (var GroupSaleMode in Model.PromoProductList.GroupBy(x => x.SaleModeID))
+                                                                    {
+                                                                        <tr style="background-color:lightgray">
+                                                                            <td colspan="4" style="padding-left:3%">
+                                                                                <label>Sale Mode: @GroupSaleMode.FirstOrDefault().SaleModeName</label>
+                                                                            </td>
+                                                                        </tr>
+
+                                                                        foreach (var GroupProduct in GroupSaleMode.GroupBy(x => x.ProductGroupID))
+                                                                        {
+                                                                            <tr style="background-color:lightgray">
+                                                                                <td colspan="4" style="padding-left:6%">
+                                                                                    <label>Product Group Name: @GroupProduct.FirstOrDefault().ProductGroupName</label>
+                                                                                </td>
+                                                                            </tr>
+                                                                            foreach (var DeptProduct in GroupProduct.GroupBy(x => x.ProductDeptID))
+                                                                            {
+                                                                                <tr style="background-color:lightgray">
+                                                                                    <td colspan="4" style="padding-left:9%">
+                                                                                        <label>Product Dept Name: @DeptProduct.FirstOrDefault().ProductDeptName</label>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                foreach (var item in DeptProduct)
+                                                                                {
+                                                                                    <tr>
+                                                                                        <td hidden="hidden">
+                                                                                            @Html.EditorFor(modelItem => item.PromotionProductID, new { htmlAttributes = new { @id = "PromotionProductID_" + i, @class = "form-control", @readonly = "readonly" } })
+                                                                                        </td>
+                                                                                        <td style="padding-left:9%">
+                                                                                            @if (item.ProductID != 0)
+                                                                                            {
+                                                                                                @Html.DisplayFor(modelItem => item.ProductName, new { htmlAttributes = new { @id = "ProductName_" + i, @class = "form-control" } })
+                                                                                            }
+                                                                                            else if (item.ProductDeptID != 0)
+                                                                                            {
+                                                                                                @Html.DisplayFor(modelItem => item.ProductDeptName, new { htmlAttributes = new { @id = "ProductDeptName_" + i, @class = "form-control" } })
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                @Html.DisplayFor(modelItem => item.ProductGroupName, new { htmlAttributes = new { @id = "ProductGroupName_" + i, @class = "form-control" } })
+                                                                                            }
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @if (item.DiscountAmount > 0)
+                                                                                            {
+                                                                                                @Html.DisplayFor(modelItem => item.DiscountAmount, new { htmlAttributes = new { @id = "DiscountAmount_" + i, @class = "form-control", @readonly = "readonly" } })
+                                                                                            }
+                                                                                            @if (item.DiscountPercentage > 0)
+                                                                                            {
+                                                                                                @Html.DisplayFor(modelItem => item.DiscountPercentage, new { htmlAttributes = new { @id = "DiscountPercentage_" + i, @class = "form-control", @readonly = "readonly" } })
+                                                                                            }
+                                                                                            @if (item.DiscountSalePrice > 0)
+                                                                                            {
+                                                                                                @Html.DisplayFor(modelItem => item.DiscountSalePrice, new { htmlAttributes = new { @id = "DiscountSalePrice_" + i, @class = "form-control", @readonly = "readonly" } })
+                                                                                            }
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            @Html.DisplayFor(modelItem => item.DiscountType)
+                                                                                            @*@Html.DropDownListFor(modelItem => item.DiscountType, new SelectList(Model.DiscountTypeList, "DiscountTypeCode", "DiscountTypeName"), htmlAttributes: new { @id = "ddlDiscType_" + i, @class = "form-control select2" })*@
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <button value="@item.PromotionProductID" onclick="DeletePromoByID(value)" class="btn btn-danger btn-sm">Delete</button>
+                                                                                        </td>
+                                                                                    </tr>
+
+                                                                                    i++;
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        </tbody>
+
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </fieldset>
+
+                                                                }
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>
+
+@section pagespecific {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#ddlShop').val('').change();
+            $('#ddlDiscountType').val('Percent').change();
+        });
+        function ChangeFlagSave() {
+            var flag = document.getElementById("flagSave");
+            flag.value = 'changes';
+        }
+        function ClickSave() {
+            var flag = document.getElementById("flagSave");
+            flag.value = 'save';
+        }
+        function GetProductGroupList(MasterShopID) {
+            $.ajax({
+                "url": baseURL + "promotion/GetProductGroupList?MasterShopID=" + MasterShopID,
+                "type": "GET",
+                "dataType": "json",
+                success: function (data) {
+                    var output = '<option value="0"> Select Product Group </option>';
+                    $.each(data, function (key, entry) {
+                        output += '<option value=' + entry.ProductGroupID + '>' + entry.ProductGroupName + '</option>';
+                    })
+                    $("#ddlGroup").html(output);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            });
+        }
+        function GetProductDeptList(ProductGroupID) {
+            $.ajax({
+                "url": baseURL + "promotion/GetProductDeptList?ProductGroupID=" + ProductGroupID,
+                "type": "GET",
+                "dataType": "json",
+                success: function (data) {
+                    var output = '<option value="0"> Select Product Dept </option>';
+                    $.each(data, function (key, entry) {
+                        output += '<option value=' + entry.ProductDeptID + '>' + entry.ProductDeptName + '</option>';
+                    })
+                    $("#ddlDept").html(output);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            });
+        }
+        function SearchProduct() {
+            // Declare variables
+            var input, filter, ul, li, a, i, txtValue;
+            input = document.getElementById('txtprodsearch');
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("chkBoxProduct");
+            li = ul.getElementsByTagName('label');
+
+            // Loop through all list items, and hide those who don't match the search query
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("input")[0];
+                txtValue = li[i].textContent || li[i].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }
+        function GetProductList(ProductDeptID) {
+            $.ajax({
+                "url": baseURL + "promotion/GetProductList?ProductDeptID=" + ProductDeptID,
+                "type": "GET",
+                "dataType": "json",
+                success: function (data) {
+                    var output = '';
+                    $.each(data, function (key, entry) {
+                        output += '<label class="container-box" style="padding-left:35px;margin-left:4px; margin-top:2px"><input id="chkProductID_' + entry.ProductID + '" name="product_selected" type="checkbox" checked="checked" value="' + entry.ProductID + '" /><span class="checkmark"></span>' + entry.ProductName + '</label><br />'
+                    })
+
+                    $("#chkBoxProduct").html(output);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            });
+        }
+        function DeletePromoByID(id) {
+            $.ajax({
+                type: "GET",
+                url: baseURL + "promotion/DeletePromoByID/" + id,
+                success: function (data) {
+                    if (data == "1") {
+                        location.reload(true);
+                    }
+                    else {
+                        alert("Failed Delete Data");
+                    }
+
+                },
+            });
+        }
+    </script>
+}

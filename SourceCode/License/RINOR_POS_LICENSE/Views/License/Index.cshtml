@@ -1,0 +1,297 @@
+﻿@model IEnumerable<RINOR_POS.ModelLicence.LICENSEViewModel>
+
+@{
+    ViewBag.Title = "License";
+}
+
+<div id="content">
+    <!-- row -->
+    <div class="row">
+        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+            <h1 class="page-title txt-color-blueDark">
+
+                <!-- PAGE HEADER -->
+                <i class="fa-fw fa fa-pencil-square-o"></i>
+                License
+                <span>
+                    >
+                    Data List
+                </span>
+            </h1>
+        </div>
+
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+            <!-- Button trigger modal -->
+            @*<a class="btn btn-primary btn-lg pull-right header-btn hidden-mobile" href="@Url.Action("Create", "License", new { id = 0 }, Request.Url.Scheme)"><i class='fa fa-plus'></i> License</a>*@
+        </div>
+    </div>
+    <section id="widget-grid" class="">
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="jarviswidget jarviswidget-color-darken" id="wid-id-0" data-widget-editbutton="false">
+
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                        <h2>License List</h2>
+
+                    </header>
+                    <div>
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <div class="widget-body no-padding">
+                            <table class="table table-striped table-bordered table-hover" width="100%" id="table_basic">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Status
+                                        </th>
+                                        <th>
+                                            Activated
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.MerchantName)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.BrandName)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.ShopName)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.LicenceTypeName)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.LicenceKey)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.DeviceName)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.DeviceKey)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.LicenceStart)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.LicenceFinish)
+                                        </th>
+                                        <th width="1%">Edit</th>
+                                        <th width="1%">Delete</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+    <!-- Modal -->
+    <div class="modal fade" id="InfoAsset" tabindex="-1" role="dialog"></div>
+</div>
+
+@section pagespecific {
+    <script type="text/javascript">
+
+        function DeleteData(id) {
+            swal({
+                title: "Are you sure want to Delete this data?",
+                text: "(this process can\'t be undo)",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, Sure!",
+                closeOnConfirm: false,
+                closeOnEsc: false,
+                closeOnCancel: false,
+                showLoaderOnConfirm: true,
+                preConfirm: () => {
+                    return new Promise(() => {
+                        //ajax side
+                        swal({
+                            title: 'Please wait... delete data in progress....',
+                            onOpen: function () {
+                                swal.showLoading()
+                                $.ajax({
+                                    type: "GET",
+                                    url: baseURL + "License/DeleteItem/" + id,
+                                    success: function (data) {
+                                        if (data == "1") {
+                                            swal.close();
+                                            swal("Success", "Success Delete Data", "success");
+                                            setTimeout(location.reload(true), 5000);
+                                            //window.location.href = "/asset_registration/index";
+                                        }
+                                        else {
+                                            swal("Failed", "Failed Delete Data", "error");
+                                        }
+
+                                    },
+                                });
+                            }
+                        });
+                    })
+                },
+                allowOutsideClick: () => !swal.isLoading()
+            }).then((result) => {
+                if (result.dismiss) {
+                    swal("Cancel", "You Cancel Delete Data", "error");
+                }
+            });
+        }
+
+        function UpdateActiveData(id) {
+            swal({
+                title: "Are you sure want to Change this data?",
+                text: "(this process can\'t be undo)",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, Sure!",
+                closeOnConfirm: false,
+                closeOnEsc: false,
+                closeOnCancel: false,
+                showLoaderOnConfirm: true,
+                preConfirm: () => {
+                    return new Promise(() => {
+                        //ajax side
+                        swal({
+                            title: 'Please wait... Change data in progress....',
+                            onOpen: function () {
+                                swal.showLoading()
+                                $.ajax({
+                                    type: "GET",
+                                    url: baseURL + "License/ActivateBrand/" + id,
+                                    success: function (data) {
+                                        if (data == "1") {
+                                            swal.close();
+                                            swal("Success", "Success Change Data", "success");
+                                            setTimeout(location.reload(true), 5000);
+                                            //window.location.href = "/asset_registration/index";
+                                        }
+                                        else {
+                                            swal("Failed", "Failed Change Data", "error");
+                                        }
+
+                                    },
+                                });
+                            }
+                        });
+                    })
+                },
+                allowOutsideClick: () => !swal.isLoading()
+            }).then((result) => {
+                if (result.dismiss) {
+                    swal("Cancel", "You Cancel Change Data", "error");
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            $('#table_basic').dataTable(
+                {
+                    "ajax": {
+                        "url": baseURL + "License/GetIndexList/",
+                        "type": "GET",
+                        "datatype": "json",
+                    },
+                    "dom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-12 hidden-xs'l>r>" + "t"
+                        + "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
+                    "columns": [
+                        {
+                            "data": "isActive",
+                            "autowidth": true,
+                            "mRender": function (data, type, full) {
+                                if (full['isActive'] == true) {
+                                    return '<i class="fa fa-check txt-color-green">';
+                                } else if (full['isActive'] == false) {
+                                    return '<i class="fa fa-times txt-color-red"></i>';
+                                } else {
+                                    return "NA"
+                                }
+                            }
+                        },
+                        {
+                            "data": "isActive",
+                            "autowidth": true,
+                            "mRender": function (data, type, full) {
+                                if (full['isActive'] == null) {
+                                    return "NA";
+                                }
+                                else if (full['isActive'] == true) {
+                                    return '<a href="#" onclick="UpdateActiveData(' + full['LicenceDataID'] + ')" title="Deactive">Deactive</a>';;
+                                } else if (full['isActive'] == false) {
+                                    return '<a href="#" onclick="UpdateActiveData(' + full['LicenceDataID'] + ')" title="Activate">Activate</a>';;
+                                }
+                            }
+                        },
+                        { "data": "MerchantName", "autoWidth": true },
+                        { "data": "BrandName", "autoWidth": true },
+                        { "data": "ShopName", "autoWidth": true },
+                        { "data": "LicenceTypeName", "autoWidth": true },
+                        { "data": "LicenceKey", "autoWidth": true },
+                        { "data": "DeviceName", "autoWidth": true },
+                        { "data": "DeviceKey", "autoWidth": true },
+                        {
+                            "data": "LicenceStart", "autoWidth": true,
+                            "mRender": function (data, type, full) {
+                                if (full['LicenceStart'] != null) {
+                                    var currentTime = new Date(parseInt(full['LicenceStart'].substr(6)));
+                                    var month = currentTime.getMonth() + 1;
+                                    var day = currentTime.getDate();
+                                    var year = currentTime.getFullYear();
+                                    return day + "-" + month + "-" + year;
+                                }
+                                else
+                                    return "NA"
+                            }
+                        },
+                        {
+                            "data": "LicenceFinish", "autoWidth": true,
+                            "mRender": function (data, type, full) {
+                                if (full['LicenceFinish'] != null) {
+                                    var currentTime = new Date(parseInt(full['LicenceFinish'].substr(6)));
+                                    var month = currentTime.getMonth() + 1;
+                                    var day = currentTime.getDate();
+                                    var year = currentTime.getFullYear();
+                                    return day + "-" + month + "-" + year;
+                                }
+                                else
+                                    return "NA"
+                            }
+                        },
+                        {
+                            "data": "action",
+                            "autowidth": true,
+                            "mRender": function (data, type, full) {
+                                return '<a href=' + baseURL + 'license/edit/' + full['DeviceKey'] + ' title="Edit"><i class="fa fa-pencil"></i></a>';
+                            }
+                        },
+                        {
+                            "data": "action",
+                            "autowidth": true,
+                            "mRender": function (data, type, full) {
+                                return '<a href="#" onclick="DeleteData(' + full['LicenceDataID'] + ')" title="Delete"><i class="fa fa-trash-o txt-color-red"></i></a>';
+                            }
+                        }
+
+                    ],
+                    "order": [[2, 'asc'], [5, 'asc']],
+                    "rowGroup": {
+                        "dataSrc": ['MerchantName', 'BrandName']
+                    },
+                    "columnDefs": [{
+                        targets: [2, 3],
+                        visible: false
+                    }],
+                    "oLanguage": {
+                        "sSearch": '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'
+                    }
+                });
+        });
+    </script>
+}

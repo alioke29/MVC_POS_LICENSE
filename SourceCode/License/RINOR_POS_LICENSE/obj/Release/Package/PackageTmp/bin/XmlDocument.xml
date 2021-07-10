@@ -1,0 +1,1122 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RINOR_POS</name>
+    </assembly>
+    <members>
+        <member name="M:RINOR_POS.App_Helpers.CryptorHelper.Encrypt(System.String,System.String,System.Boolean)">
+            <summary>
+            Encrypt a string using dual encryption method. Return a encrypted cipher Text
+            </summary>
+            <param name="toEncrypt">string to be encrypted</param>
+            <param name="useHashing">use hashing? send to for extra secirity</param>
+            <returns></returns>
+        </member>
+        <member name="M:RINOR_POS.App_Helpers.CryptorHelper.Decrypt(System.String,System.String,System.Boolean)">
+            <summary>
+            DeCrypt a string using dual encryption method. Return a DeCrypted clear string
+            </summary>
+            <param name="cipherString">encrypted string</param>
+            <param name="useHashing">Did you use hashing to encrypt this data? pass true is yes</param>
+            <returns></returns>
+        </member>
+        <member name="T:RINOR_POS.App_Helpers.JDConverter">
+            <summary>
+            Julian Date Converter
+            </summary>
+        </member>
+        <member name="M:RINOR_POS.App_Helpers.JDConverter.DateToJulian(System.DateTime)">
+            <summary>
+            Convert From Date to Julian Date
+            </summary>
+            <param name="date">datetime</param>
+            <returns>Double as Julian</returns>
+        </member>
+        <member name="M:RINOR_POS.App_Helpers.JDConverter.JulianToDate(System.Double)">
+            <summary>
+            Convert JulianDate
+            </summary>
+            <param name="JD"></param>
+            <returns></returns>
+        </member>
+        <member name="T:RINOR_POS.App_Helpers.Token">
+            <summary>
+            Token System By Rinor
+            </summary>
+        </member>
+        <member name="M:RINOR_POS.App_Helpers.Token.CreateToken">
+            <summary>
+            Create Token By Date
+            </summary>
+            <returns>Toke</returns>
+        </member>
+        <member name="M:RINOR_POS.App_Helpers.Token.isValidToken(System.String)">
+            <summary>
+            Check for valid token
+            </summary>
+            <param name="Token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RINOR_POS.DashRouteHandler.GetHttpHandler(System.Web.Routing.RequestContext)">
+            <summary>
+                Custom route handler that removes any dashes from the route before handling it.
+            </summary>
+            <param name="requestContext">The context of the given (current) request.</param>
+            <returns></returns>
+        </member>
+        <member name="M:RINOR_POS.HtmlHelperExtensions.AssemblyVersion(System.Web.Mvc.HtmlHelper)">
+            <summary>
+                Retrieves a non-HTML encoded string containing the assembly version as a formatted string.
+                <para>If a project name is specified in the application configuration settings it will be prefixed to this value.</para>
+                <para>
+                    e.g.
+                    <code>1.0 (build 100)</code>
+                </para>
+                <para>
+                    e.g.
+                    <code>ProjectName 1.0 (build 100)</code>
+                </para>
+            </summary>
+            <param name="helper"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RINOR_POS.HtmlHelperExtensions.RouteIf(System.Web.Mvc.HtmlHelper,System.String,System.String)">
+            <summary>
+                Compares the requested route with the given <paramref name="value" /> value, if a match is found the
+                <paramref name="attribute" /> value is returned.
+            </summary>
+            <param name="helper"></param>
+            <param name="value">The action value to compare to the requested route action.</param>
+            <param name="attribute">The attribute value to return in the current action matches the given action value.</param>
+            <returns>A HtmlString containing the given attribute value; otherwise an empty string.</returns>
+        </member>
+        <member name="M:RINOR_POS.HtmlHelperExtensions.RenderPartialIf(System.Web.Mvc.HtmlHelper,System.String,System.String)">
+            <summary>
+                Renders the specified partial view with the parent's view data and model if the given setting entry is found and
+                represents the equivalent of true.
+            </summary>
+            <param name="htmlHelper"></param>
+            <param name="partialViewName">The name of the partial view.</param>
+            <param name="appSetting">The key value of the entry point to look for.</param>
+        </member>
+        <member name="M:RINOR_POS.HtmlHelperExtensions.RenderPartialIf(System.Web.Mvc.HtmlHelper,System.String,System.Boolean)">
+            <summary>
+                Renders the specified partial view with the parent's view data and model if the given setting entry is found and
+                represents the equivalent of true.
+            </summary>
+            <param name="htmlHelper"></param>
+            <param name="partialViewName">The name of the partial view.</param>
+            <param name="condition">The boolean value that determines if the partial view should be rendered.</param>
+        </member>
+        <member name="M:RINOR_POS.HtmlHelperExtensions.Copyright(System.Web.Mvc.HtmlHelper)">
+            <summary>
+                Retrieves a non-HTML encoded string containing the assembly version and the application copyright as a formatted
+                string.
+                <para>If a company name is specified in the application configuration settings it will be suffixed to this value.</para>
+                <para>
+                    e.g.
+                    <code>1.0 (build 100) © 2015</code>
+                </para>
+                <para>
+                    e.g.
+                    <code>1.0 (build 100) © 2015 CompanyName</code>
+                </para>
+            </summary>
+            <param name="helper"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RINOR_POS.HtmlHelperExtensions.ValidationBootstrap(System.Web.Mvc.HtmlHelper,System.String,System.String)">
+            <summary>
+                Returns an unordered list (ul element) of validation messages that utilizes bootstrap markup and styling.
+            </summary>
+            <param name="htmlHelper"></param>
+            <param name="alertType">The alert type styling rule to apply to the summary element.</param>
+            <param name="heading">The optional value for the heading of the summary element.</param>
+            <returns></returns>
+        </member>
+        <member name="T:RINOR_POS.Settings">
+            <summary>
+                Provides access to the current application's configuration file.
+            </summary>
+        </member>
+        <member name="F:RINOR_POS.Settings.Prefix">
+            <summary>
+                Specifies the default entry prefix value ("config").
+            </summary>
+        </member>
+        <member name="F:RINOR_POS.Settings.Company">
+            <summary>
+                Retrieves the entry value for the following composed key: "config:Company" as a string.
+            </summary>
+        </member>
+        <member name="F:RINOR_POS.Settings.Project">
+            <summary>
+                Retrieves the entry value for the following composed key: "config:Project" as a string.
+            </summary>
+        </member>
+        <member name="F:RINOR_POS.Settings.EnableTiles">
+            <summary>
+                Retrieves the entry value for the following composed key: "config:EnableTiles" as a boolean.
+            </summary>
+        </member>
+        <member name="F:RINOR_POS.Settings.EnableLoader">
+            <summary>
+                Retrieves the entry value for the following composed key: "config:EnableLoader" as a boolean.
+            </summary>
+        </member>
+        <member name="F:RINOR_POS.Settings.CurrentTheme">
+            <summary>
+                Retrieves the entry value for the following composed key: "config:CurrentTheme" as a string.
+            </summary>
+        </member>
+        <member name="M:RINOR_POS.Settings.GetValue``1(System.String,System.String)">
+            <summary>
+                Gets the entry for the given key and prefix and retrieves its value as the specified type.
+                <para>If no prefix is specified the default prefix value ("config") will be used.</para>
+                <para>
+                    <example>e.g. GetValue&lt;string&gt;("config", "SettingName")</example>
+                </para>
+                Would result in checking the configuration file for a key named: "config:SettingName"
+            </summary>
+            <typeparam name="T">The type of which the value will be converted into and returned.</typeparam>
+            <param name="prefix">The prefix of the entry to locate.</param>
+            <param name="key">The key of the entry to locate.</param>
+            <returns>The value of the entry, or the default value, as the specified type.</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:RINOR_POS.Settings.SetValue``1(System.String,System.String)" -->
+        <member name="T:RINOR_POS.StringExtensions">
+            <summary>
+            Provides utility methods for converting string values to other data types.
+            </summary>
+        </member>
+        <member name="M:RINOR_POS.StringExtensions.UnDash(System.Object)">
+            <summary>
+                Removes dashes ("-") from the given object value represented as a string and returns an empty string ("")
+                when the instance type could not be represented as a string.
+                <para>
+                    Note: This will return the type name of given isntance if the runtime type of the given isntance is not a
+                    string!
+                </para>
+            </summary>
+            <param name="value">The object instance to undash when represented as its string value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:RINOR_POS.StringExtensions.UnDash(System.String)">
+            <summary>
+                Removes dashes ("-") from the given string value.
+            </summary>
+            <param name="value">The string value that optionally contains dashes.</param>
+            <returns></returns>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.ApiDescriptionExtensions.GetFriendlyId(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Generates an URI-friendly ID for the <see cref="T:System.Web.Http.Description.ApiDescription"/>. E.g. "Get-Values-id_name" instead of "GetValues/{id}?name={name}"
+            </summary>
+            <param name="description">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The ID as a string.</returns>
+        </member>
+        <member name="T:RINOR_POS.Areas.HelpPage.HelpPageConfig">
+            <summary>
+            Use this class to customize the Help Page.
+            For example you can set a custom <see cref="T:System.Web.Http.Description.IDocumentationProvider"/> to supply the documentation
+            or you can provide the samples for the requests/responses.
+            </summary>
+        </member>
+        <member name="T:RINOR_POS.Areas.HelpPage.Controllers.HelpController">
+            <summary>
+            The controller that will handle requests for the help page.
+            </summary>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.HelpPageConfigurationExtensions.SetDocumentationProvider(System.Web.Http.HttpConfiguration,System.Web.Http.Description.IDocumentationProvider)">
+            <summary>
+            Sets the documentation provider for help page.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="documentationProvider">The documentation provider.</param>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleObjects(System.Web.Http.HttpConfiguration,System.Collections.Generic.IDictionary{System.Type,System.Object})">
+            <summary>
+            Sets the objects that will be used by the formatters to produce sample requests/responses.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sampleObjects">The sample objects.</param>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleRequest(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String)">
+            <summary>
+            Sets the sample request directly for the specified media type and action.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample request.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleRequest(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String,System.String[])">
+            <summary>
+            Sets the sample request directly for the specified media type and action with parameters.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample request.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleResponse(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String)">
+            <summary>
+            Sets the sample request directly for the specified media type of the action.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample response.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleResponse(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String,System.String[])">
+            <summary>
+            Sets the sample response directly for the specified media type of the action with specific parameters.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample response.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleForMediaType(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue)">
+            <summary>
+            Sets the sample directly for all actions with the specified media type.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample.</param>
+            <param name="mediaType">The media type.</param>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleForType(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.Type)">
+            <summary>
+            Sets the sample directly for all actions with the specified type and media type.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="type">The parameter type or return type of an action.</param>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualRequestType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String)">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate request samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualRequestType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String,System.String[])">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate request samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualResponseType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String)">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> returned as part of the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate response samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualResponseType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String,System.String[])">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> returned as part of the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate response samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.HelpPageConfigurationExtensions.GetHelpPageSampleGenerator(System.Web.Http.HttpConfiguration)">
+            <summary>
+            Gets the help page sample generator.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <returns>The help page sample generator.</returns>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.HelpPageConfigurationExtensions.SetHelpPageSampleGenerator(System.Web.Http.HttpConfiguration,RINOR_POS.Areas.HelpPage.HelpPageSampleGenerator)">
+            <summary>
+            Sets the help page sample generator.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sampleGenerator">The help page sample generator.</param>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.HelpPageConfigurationExtensions.GetModelDescriptionGenerator(System.Web.Http.HttpConfiguration)">
+            <summary>
+            Gets the model description generator.
+            </summary>
+            <param name="config">The configuration.</param>
+            <returns>The <see cref="T:RINOR_POS.Areas.HelpPage.ModelDescriptions.ModelDescriptionGenerator"/></returns>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.HelpPageConfigurationExtensions.GetHelpPageApiModel(System.Web.Http.HttpConfiguration,System.String)">
+            <summary>
+            Gets the model that represents an API displayed on the help page. The model is initialized on the first call and cached for subsequent calls.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="apiDescriptionId">The <see cref="T:System.Web.Http.Description.ApiDescription"/> ID.</param>
+            <returns>
+            An <see cref="T:RINOR_POS.Areas.HelpPage.Models.HelpPageApiModel"/>
+            </returns>
+        </member>
+        <member name="T:RINOR_POS.Areas.HelpPage.ModelDescriptions.ModelDescription">
+            <summary>
+            Describes a type model.
+            </summary>
+        </member>
+        <member name="T:RINOR_POS.Areas.HelpPage.ModelDescriptions.ModelDescriptionGenerator">
+            <summary>
+            Generates model descriptions for given types.
+            </summary>
+        </member>
+        <member name="T:RINOR_POS.Areas.HelpPage.ModelDescriptions.ModelNameAttribute">
+            <summary>
+            Use this attribute to change the name of the <see cref="T:RINOR_POS.Areas.HelpPage.ModelDescriptions.ModelDescription"/> generated for a type.
+            </summary>
+        </member>
+        <member name="T:RINOR_POS.Areas.HelpPage.Models.HelpPageApiModel">
+            <summary>
+            The model that represents an API displayed on the help page.
+            </summary>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.Models.HelpPageApiModel.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:RINOR_POS.Areas.HelpPage.Models.HelpPageApiModel"/> class.
+            </summary>
+        </member>
+        <member name="P:RINOR_POS.Areas.HelpPage.Models.HelpPageApiModel.ApiDescription">
+            <summary>
+            Gets or sets the <see cref="P:RINOR_POS.Areas.HelpPage.Models.HelpPageApiModel.ApiDescription"/> that describes the API.
+            </summary>
+        </member>
+        <member name="P:RINOR_POS.Areas.HelpPage.Models.HelpPageApiModel.UriParameters">
+            <summary>
+            Gets or sets the <see cref="T:RINOR_POS.Areas.HelpPage.ModelDescriptions.ParameterDescription"/> collection that describes the URI parameters for the API.
+            </summary>
+        </member>
+        <member name="P:RINOR_POS.Areas.HelpPage.Models.HelpPageApiModel.RequestDocumentation">
+            <summary>
+            Gets or sets the documentation for the request.
+            </summary>
+        </member>
+        <member name="P:RINOR_POS.Areas.HelpPage.Models.HelpPageApiModel.RequestModelDescription">
+            <summary>
+            Gets or sets the <see cref="T:RINOR_POS.Areas.HelpPage.ModelDescriptions.ModelDescription"/> that describes the request body.
+            </summary>
+        </member>
+        <member name="P:RINOR_POS.Areas.HelpPage.Models.HelpPageApiModel.RequestBodyParameters">
+            <summary>
+            Gets the request body parameter descriptions.
+            </summary>
+        </member>
+        <member name="P:RINOR_POS.Areas.HelpPage.Models.HelpPageApiModel.ResourceDescription">
+            <summary>
+            Gets or sets the <see cref="T:RINOR_POS.Areas.HelpPage.ModelDescriptions.ModelDescription"/> that describes the resource.
+            </summary>
+        </member>
+        <member name="P:RINOR_POS.Areas.HelpPage.Models.HelpPageApiModel.ResourceProperties">
+            <summary>
+            Gets the resource property descriptions.
+            </summary>
+        </member>
+        <member name="P:RINOR_POS.Areas.HelpPage.Models.HelpPageApiModel.SampleRequests">
+            <summary>
+            Gets the sample requests associated with the API.
+            </summary>
+        </member>
+        <member name="P:RINOR_POS.Areas.HelpPage.Models.HelpPageApiModel.SampleResponses">
+            <summary>
+            Gets the sample responses associated with the API.
+            </summary>
+        </member>
+        <member name="P:RINOR_POS.Areas.HelpPage.Models.HelpPageApiModel.ErrorMessages">
+            <summary>
+            Gets the error messages associated with this model.
+            </summary>
+        </member>
+        <member name="T:RINOR_POS.Areas.HelpPage.HelpPageSampleGenerator">
+            <summary>
+            This class will generate the samples for the help page.
+            </summary>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.HelpPageSampleGenerator.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:RINOR_POS.Areas.HelpPage.HelpPageSampleGenerator"/> class.
+            </summary>
+        </member>
+        <member name="P:RINOR_POS.Areas.HelpPage.HelpPageSampleGenerator.ActualHttpMessageTypes">
+            <summary>
+            Gets CLR types that are used as the content of <see cref="T:System.Net.Http.HttpRequestMessage"/> or <see cref="T:System.Net.Http.HttpResponseMessage"/>.
+            </summary>
+        </member>
+        <member name="P:RINOR_POS.Areas.HelpPage.HelpPageSampleGenerator.ActionSamples">
+            <summary>
+            Gets the objects that are used directly as samples for certain actions.
+            </summary>
+        </member>
+        <member name="P:RINOR_POS.Areas.HelpPage.HelpPageSampleGenerator.SampleObjects">
+            <summary>
+            Gets the objects that are serialized as samples by the supported formatters.
+            </summary>
+        </member>
+        <member name="P:RINOR_POS.Areas.HelpPage.HelpPageSampleGenerator.SampleObjectFactories">
+            <summary>
+            Gets factories for the objects that the supported formatters will serialize as samples. Processed in order,
+            stopping when the factory successfully returns a non-<see langref="null"/> object.
+            </summary>
+            <remarks>
+            Collection includes just <see cref="M:RINOR_POS.Areas.HelpPage.ObjectGenerator.GenerateObject(System.Type)"/> initially. Use
+            <code>SampleObjectFactories.Insert(0, func)</code> to provide an override and
+            <code>SampleObjectFactories.Add(func)</code> to provide a fallback.</remarks>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.HelpPageSampleGenerator.GetSampleRequests(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Gets the request body samples for a given <see cref="T:System.Web.Http.Description.ApiDescription"/>.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.HelpPageSampleGenerator.GetSampleResponses(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Gets the response body samples for a given <see cref="T:System.Web.Http.Description.ApiDescription"/>.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.HelpPageSampleGenerator.GetSample(System.Web.Http.Description.ApiDescription,RINOR_POS.Areas.HelpPage.SampleDirection)">
+            <summary>
+            Gets the request or response body samples.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or for a response.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.HelpPageSampleGenerator.GetActionSample(System.String,System.String,System.Collections.Generic.IEnumerable{System.String},System.Type,System.Net.Http.Formatting.MediaTypeFormatter,System.Net.Http.Headers.MediaTypeHeaderValue,RINOR_POS.Areas.HelpPage.SampleDirection)">
+            <summary>
+            Search for samples that are provided directly through <see cref="P:RINOR_POS.Areas.HelpPage.HelpPageSampleGenerator.ActionSamples"/>.
+            </summary>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+            <param name="type">The CLR type.</param>
+            <param name="formatter">The formatter.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or for a response.</param>
+            <returns>The sample that matches the parameters.</returns>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.HelpPageSampleGenerator.GetSampleObject(System.Type)">
+            <summary>
+            Gets the sample object that will be serialized by the formatters. 
+            First, it will look at the <see cref="P:RINOR_POS.Areas.HelpPage.HelpPageSampleGenerator.SampleObjects"/>. If no sample object is found, it will try to create
+            one using <see cref="M:RINOR_POS.Areas.HelpPage.HelpPageSampleGenerator.DefaultSampleObjectFactory(RINOR_POS.Areas.HelpPage.HelpPageSampleGenerator,System.Type)"/> (which wraps an <see cref="T:RINOR_POS.Areas.HelpPage.ObjectGenerator"/>) and other
+            factories in <see cref="P:RINOR_POS.Areas.HelpPage.HelpPageSampleGenerator.SampleObjectFactories"/>.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>The sample object.</returns>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.HelpPageSampleGenerator.ResolveHttpRequestMessageType(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Resolves the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The type.</returns>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.HelpPageSampleGenerator.ResolveType(System.Web.Http.Description.ApiDescription,System.String,System.String,System.Collections.Generic.IEnumerable{System.String},RINOR_POS.Areas.HelpPage.SampleDirection,System.Collections.ObjectModel.Collection{System.Net.Http.Formatting.MediaTypeFormatter}@)">
+            <summary>
+            Resolves the type of the action parameter or return value when <see cref="T:System.Net.Http.HttpRequestMessage"/> or <see cref="T:System.Net.Http.HttpResponseMessage"/> is used.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or a response.</param>
+            <param name="formatters">The formatters.</param>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.HelpPageSampleGenerator.WriteSampleObjectUsingFormatter(System.Net.Http.Formatting.MediaTypeFormatter,System.Object,System.Type,System.Net.Http.Headers.MediaTypeHeaderValue)">
+            <summary>
+            Writes the sample object using formatter.
+            </summary>
+            <param name="formatter">The formatter.</param>
+            <param name="value">The value.</param>
+            <param name="type">The type.</param>
+            <param name="mediaType">Type of the media.</param>
+            <returns></returns>
+        </member>
+        <member name="T:RINOR_POS.Areas.HelpPage.HelpPageSampleKey">
+            <summary>
+            This is used to identify the place where the sample should be applied.
+            </summary>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue)">
+            <summary>
+            Creates a new <see cref="T:RINOR_POS.Areas.HelpPage.HelpPageSampleKey"/> based on media type.
+            </summary>
+            <param name="mediaType">The media type.</param>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue,System.Type)">
+            <summary>
+            Creates a new <see cref="T:RINOR_POS.Areas.HelpPage.HelpPageSampleKey"/> based on media type and CLR type.
+            </summary>
+            <param name="mediaType">The media type.</param>
+            <param name="type">The CLR type.</param>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.HelpPageSampleKey.#ctor(RINOR_POS.Areas.HelpPage.SampleDirection,System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates a new <see cref="T:RINOR_POS.Areas.HelpPage.HelpPageSampleKey"/> based on <see cref="P:RINOR_POS.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>, controller name, action name and parameter names.
+            </summary>
+            <param name="sampleDirection">The <see cref="P:RINOR_POS.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue,RINOR_POS.Areas.HelpPage.SampleDirection,System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates a new <see cref="T:RINOR_POS.Areas.HelpPage.HelpPageSampleKey"/> based on media type, <see cref="P:RINOR_POS.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>, controller name, action name and parameter names.
+            </summary>
+            <param name="mediaType">The media type.</param>
+            <param name="sampleDirection">The <see cref="P:RINOR_POS.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="P:RINOR_POS.Areas.HelpPage.HelpPageSampleKey.ControllerName">
+            <summary>
+            Gets the name of the controller.
+            </summary>
+            <value>
+            The name of the controller.
+            </value>
+        </member>
+        <member name="P:RINOR_POS.Areas.HelpPage.HelpPageSampleKey.ActionName">
+            <summary>
+            Gets the name of the action.
+            </summary>
+            <value>
+            The name of the action.
+            </value>
+        </member>
+        <member name="P:RINOR_POS.Areas.HelpPage.HelpPageSampleKey.MediaType">
+            <summary>
+            Gets the media type.
+            </summary>
+            <value>
+            The media type.
+            </value>
+        </member>
+        <member name="P:RINOR_POS.Areas.HelpPage.HelpPageSampleKey.ParameterNames">
+            <summary>
+            Gets the parameter names.
+            </summary>
+        </member>
+        <member name="P:RINOR_POS.Areas.HelpPage.HelpPageSampleKey.SampleDirection">
+            <summary>
+            Gets the <see cref="P:RINOR_POS.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.
+            </summary>
+        </member>
+        <member name="T:RINOR_POS.Areas.HelpPage.ImageSample">
+            <summary>
+            This represents an image sample on the help page. There's a display template named ImageSample associated with this class.
+            </summary>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.ImageSample.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:RINOR_POS.Areas.HelpPage.ImageSample"/> class.
+            </summary>
+            <param name="src">The URL of an image.</param>
+        </member>
+        <member name="T:RINOR_POS.Areas.HelpPage.InvalidSample">
+            <summary>
+            This represents an invalid sample on the help page. There's a display template named InvalidSample associated with this class.
+            </summary>
+        </member>
+        <member name="T:RINOR_POS.Areas.HelpPage.ObjectGenerator">
+            <summary>
+            This class will create an object of a given type and populate it with sample data.
+            </summary>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.ObjectGenerator.GenerateObject(System.Type)">
+            <summary>
+            Generates an object for a given type. The type needs to be public, have a public default constructor and settable public properties/fields. Currently it supports the following types:
+            Simple types: <see cref="T:System.Int32"/>, <see cref="T:System.String"/>, <see cref="T:System.Enum"/>, <see cref="T:System.DateTime"/>, <see cref="T:System.Uri"/>, etc.
+            Complex types: POCO types.
+            Nullables: <see cref="T:System.Nullable`1"/>.
+            Arrays: arrays of simple types or complex types.
+            Key value pairs: <see cref="T:System.Collections.Generic.KeyValuePair`2"/>
+            Tuples: <see cref="T:System.Tuple`1"/>, <see cref="T:System.Tuple`2"/>, etc
+            Dictionaries: <see cref="T:System.Collections.Generic.IDictionary`2"/> or anything deriving from <see cref="T:System.Collections.Generic.IDictionary`2"/>.
+            Collections: <see cref="T:System.Collections.Generic.IList`1"/>, <see cref="T:System.Collections.Generic.IEnumerable`1"/>, <see cref="T:System.Collections.Generic.ICollection`1"/>, <see cref="T:System.Collections.IList"/>, <see cref="T:System.Collections.IEnumerable"/>, <see cref="T:System.Collections.ICollection"/> or anything deriving from <see cref="T:System.Collections.Generic.ICollection`1"/> or <see cref="T:System.Collections.IList"/>.
+            Queryables: <see cref="T:System.Linq.IQueryable"/>, <see cref="T:System.Linq.IQueryable`1"/>.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>An object of the given type.</returns>
+        </member>
+        <member name="T:RINOR_POS.Areas.HelpPage.SampleDirection">
+            <summary>
+            Indicates whether the sample is used for request or response
+            </summary>
+        </member>
+        <member name="T:RINOR_POS.Areas.HelpPage.TextSample">
+            <summary>
+            This represents a preformatted text sample on the help page. There's a display template named TextSample associated with this class.
+            </summary>
+        </member>
+        <member name="T:RINOR_POS.Areas.HelpPage.XmlDocumentationProvider">
+            <summary>
+            A custom <see cref="T:System.Web.Http.Description.IDocumentationProvider"/> that reads the API documentation from an XML documentation file.
+            </summary>
+        </member>
+        <member name="M:RINOR_POS.Areas.HelpPage.XmlDocumentationProvider.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:RINOR_POS.Areas.HelpPage.XmlDocumentationProvider"/> class.
+            </summary>
+            <param name="documentPath">The physical path to XML document.</param>
+        </member>
+        <member name="T:RINOR_POS.Controllers.APIBrandByIDController">
+            <summary>
+            Brand By ID
+            </summary>
+        </member>
+        <member name="M:RINOR_POS.Controllers.APIBrandByIDController.Get(System.String,System.Int32)">
+            <summary>
+            Looks up some data Brand
+            </summary>
+            <param name="KeyToken">Token.</param>
+            <param name="BrandID">ID of Data</param>
+        </member>
+        <member name="T:RINOR_POS.Controllers.APIComputerNameByIDController">
+            <summary>
+            Computer Name By ID
+            </summary>
+        </member>
+        <member name="M:RINOR_POS.Controllers.APIComputerNameByIDController.Get(System.String,System.Int32)">
+            <summary>
+            Looks up some data ComputerName
+            </summary>
+            <param name="KeyToken">Token.</param>
+            <param name="ComputerNameID">ID of Data</param>
+        </member>
+        <member name="T:RINOR_POS.Controllers.APIComputerTypeByIDController">
+            <summary>
+            Computer Type By ID
+            </summary>
+        </member>
+        <member name="M:RINOR_POS.Controllers.APIComputerTypeByIDController.Get(System.String,System.Int32)">
+            <summary>
+            Looks up some data ComputerType
+            </summary>
+            <param name="KeyToken">Token.</param>
+            <param name="ComputerTypeID">ID of Data</param>
+        </member>
+        <member name="T:RINOR_POS.Controllers.APILicenceAllDataController">
+            <summary>
+            API For Licence with Merchant, Brand, Shop data by Device
+            </summary>
+        </member>
+        <member name="M:RINOR_POS.Controllers.APILicenceAllDataController.Get(System.String,System.String)">
+            <summary>
+            Looks up some data Bill Tamplate.
+            </summary>
+            <param name="KeyToken">Token.</param>
+            <param name="DeviceKey">The Device Key.</param>
+        </member>
+        <member name="M:RINOR_POS.Controllers.APILicenceAllDataController.Post(System.String,RINOR_POS.ModelLicence.GCS_LICENSE_DEV)">
+            <summary>
+            Update to Active table GCS_LICENSE_DEV
+            </summary>
+            <param name="KeyToken">Token.</param>
+            <param name="licence">Single data GCS_LICENSE_DEV </param>
+            <returns></returns>
+        </member>
+        <member name="T:RINOR_POS.Controllers.APILicenceByDeviceController">
+            <summary>
+            API For Licence by Device
+            </summary>
+        </member>
+        <member name="M:RINOR_POS.Controllers.APILicenceByDeviceController.Get(System.String,System.String)">
+            <summary>
+            Looks up some data Bill Tamplate.
+            </summary>
+            <param name="KeyToken">Token.</param>
+            <param name="DeviceKey">The Device Key.</param>
+        </member>
+        <member name="T:RINOR_POS.Controllers.APILicenceTrialController">
+            <summary>
+            Update to Trial Mode (table GCS_LICENSE_DEV)
+            </summary>
+        </member>
+        <member name="M:RINOR_POS.Controllers.APILicenceTrialController.Post(System.String,RINOR_POS.ModelLicence.GCS_LICENSE_DEV)">
+            <summary>
+            Update to Trial Mode table GCS_LICENSE_DEV
+            </summary>
+            <param name="KeyToken">Token.</param>
+            <param name="licence">Single data GCS_LICENSE_DEV </param>
+            <returns></returns>
+        </member>
+        <member name="T:RINOR_POS.Controllers.APILicenceTypeByIDController">
+            <summary>
+            Licence Type By ID
+            </summary>
+        </member>
+        <member name="M:RINOR_POS.Controllers.APILicenceTypeByIDController.Get(System.String,System.Int32)">
+            <summary>
+            Looks up some data Licence.
+            </summary>
+            <param name="KeyToken">Token.</param>
+            <param name="ID">ID.</param>
+        </member>
+        <member name="T:RINOR_POS.Controllers.APILicenceTypeController">
+            <summary>
+            API For Data LicenceType
+            </summary>
+        </member>
+        <member name="M:RINOR_POS.Controllers.APILicenceTypeController.Get(System.String,System.Double)">
+            <summary>
+            Looks up some data Licence.
+            </summary>
+            <param name="KeyToken">Token.</param>
+            <param name="LastSycn">Last Sycn with julian date format.</param>
+        </member>
+        <member name="T:RINOR_POS.Controllers.APIMerchantByIDController">
+            <summary>
+            Merchant By ID
+            </summary>
+        </member>
+        <member name="M:RINOR_POS.Controllers.APIMerchantByIDController.Get(System.String,System.Int32)">
+            <summary>
+            Looks up some data Merchant ID
+            </summary>
+            <param name="KeyToken">Token.</param>
+            <param name="MerchantID">ID of Data</param>
+        </member>
+        <member name="T:RINOR_POS.Controllers.APIRegisterBrandController">
+            <summary>
+            API For Register New Merchant to Rinor License
+            </summary>
+        </member>
+        <member name="M:RINOR_POS.Controllers.APIRegisterBrandController.Post(System.String,RINOR_POS.ModelLicence.pos_brand_data)">
+            <summary>
+            Register New Merchant to Rinor License
+            </summary>
+            <param name="KeyToken">Token.</param>
+            <param name="BrandData">data.</param>
+            <returns></returns>
+        </member>
+        <member name="T:RINOR_POS.Controllers.APIRegisterComputerNameController">
+            <summary>
+            Computer Name Registration
+            </summary>
+        </member>
+        <member name="M:RINOR_POS.Controllers.APIRegisterComputerNameController.Post(System.String,RINOR_POS.ModelLicence.pos_computer_name)">
+            <summary>
+            Register New Merchant to Rinor License
+            </summary>
+            <param name="KeyToken">Token.</param>
+            <param name="ComputerNameData">data.</param>
+            <returns></returns>
+        </member>
+        <member name="T:RINOR_POS.Controllers.APIRegisterComputerTypeController">
+            <summary>
+            Computer Type Registration
+            </summary>
+        </member>
+        <member name="M:RINOR_POS.Controllers.APIRegisterComputerTypeController.Post(System.String,RINOR_POS.ModelLicence.pos_computer_type)">
+            <summary>
+            Register New Merchant to Rinor License
+            </summary>
+            <param name="KeyToken">Token.</param>
+            <param name="ComputerTypeData">data.</param>
+            <returns></returns>
+        </member>
+        <member name="T:RINOR_POS.Controllers.APIRegisterMerchantController">
+            <summary>
+            API For Register New Merchant to Rinor License
+            </summary>
+        </member>
+        <member name="M:RINOR_POS.Controllers.APIRegisterMerchantController.Post(System.String,RINOR_POS.ModelLicence.pos_merchant_data)">
+            <summary>
+            Register New Merchant to Rinor License
+            </summary>
+            <param name="KeyToken">Token.</param>
+            <param name="MerchantData">data pos_merchant_data </param>
+            <returns></returns>
+        </member>
+        <member name="T:RINOR_POS.Controllers.APIRegisterShopController">
+            <summary>
+            Register Shop
+            </summary>
+        </member>
+        <member name="M:RINOR_POS.Controllers.APIRegisterShopController.Post(System.String,RINOR_POS.ModelLicence.pos_shop_data)">
+            <summary>
+            Register New Merchant to Rinor License
+            </summary>
+            <param name="KeyToken">Token.</param>
+            <param name="ShopData">data.</param>
+            <returns></returns>
+        </member>
+        <member name="T:RINOR_POS.Controllers.APIShopByIDController">
+            <summary>
+            Shop By ID
+            </summary>
+        </member>
+        <member name="M:RINOR_POS.Controllers.APIShopByIDController.Get(System.String,System.Int32)">
+            <summary>
+            Looks up some data Shop
+            </summary>
+            <param name="KeyToken">Token.</param>
+            <param name="ShopID">ID of Data</param>
+        </member>
+        <member name="T:RINOR_POS.Controllers.API_LicenceTableByDeviceKeyController">
+            <summary>
+            API For Licence data by Device
+            </summary>
+        </member>
+        <member name="M:RINOR_POS.Controllers.API_LicenceTableByDeviceKeyController.Get(System.String,System.String)">
+            <summary>
+            Looks up some data Bill Tamplate.
+            </summary>
+            <param name="KeyToken">Token.</param>
+            <param name="DeviceKey">The Device Key.</param>
+        </member>
+        <member name="M:RINOR_POS.Controllers.brandController.GetIndexList">
+            <summary>
+            list for index
+            </summary>
+            <returns>JSON</returns>
+        </member>
+        <member name="M:RINOR_POS.Controllers.computerController.GetIndexList(System.Int32)">
+            <summary>
+            list for index
+            </summary>
+            <returns>JSON</returns>
+        </member>
+        <member name="M:RINOR_POS.Controllers.computertypeController.GetIndexList">
+            <summary>
+            list for index
+            </summary>
+            <returns>JSON</returns>
+        </member>
+        <member name="M:RINOR_POS.Controllers.employeeController.GetIndexList">
+            <summary>
+            list for index
+            </summary>
+            <returns>JSON</returns>
+        </member>
+        <member name="M:RINOR_POS.Controllers.homeController.GetIndexList">
+            <summary>
+            list for index
+            </summary>
+            <returns>JSON</returns>
+        </member>
+        <member name="T:RINOR_POS.Controllers.LicenceTypeController">
+            <summary>
+            Licence Type
+            </summary>
+        </member>
+        <member name="M:RINOR_POS.Controllers.LicenceTypeController.Index">
+            GET: LicenceType
+        </member>
+        <member name="M:RINOR_POS.Controllers.LicenceTypeController.GetIndexList">
+            <summary>
+            list for index
+            </summary>
+            <returns>JSON</returns>
+        </member>
+        <member name="M:RINOR_POS.Controllers.LicenceTypeController.Create(System.Nullable{System.Int32})">
+            GET: licencetype/Create
+        </member>
+        <member name="M:RINOR_POS.Controllers.LicenceTypeController.Create(RINOR_POS.ModelLicence.LicenseTypeViewModel)">
+            POST: licencetype/Create
+            To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+            more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        </member>
+        <member name="M:RINOR_POS.Controllers.LicenceTypeController.Edit(System.Nullable{System.Int32})">
+            GET: licencetype/Edit/5
+        </member>
+        <member name="M:RINOR_POS.Controllers.LicenceTypeController.Edit(RINOR_POS.ModelLicence.LicenseTypeViewModel)">
+            POST: crud/Edit
+            To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+            more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        </member>
+        <member name="M:RINOR_POS.Controllers.LicenceTypeController.DeleteItem(System.Int32)">
+            POST: licencetype/Delete/5
+        </member>
+        <member name="T:RINOR_POS.Controllers.LicenseController">
+            <summary>
+            License Controller
+            </summary>
+        </member>
+        <member name="M:RINOR_POS.Controllers.LicenseController.GetIndexList">
+            <summary>
+            list for index
+            </summary>
+            <returns>JSON</returns>
+        </member>
+        <member name="M:RINOR_POS.Controllers.LicenseController.GetBrandList(System.Int32)">
+            <summary>
+            License List by MerchantID
+            </summary>
+            <param name="MerchantID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RINOR_POS.Controllers.LicenseController.GetMasterShopList(System.Int32)">
+            <summary>
+            Master Shop By BrandID
+            </summary>
+            <param name="BrandID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RINOR_POS.Controllers.LicenseController.GetShopList(System.Int32)">
+            <summary>
+            Shop By MasterShopID
+            </summary>
+            <param name="MasterShopID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RINOR_POS.Controllers.LicenseController.GetDeviceList(System.Int32)">
+            <summary>
+            Device By ShopID
+            </summary>
+            <param name="ShopID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RINOR_POS.Controllers.LicenseController.Edit(System.String)">
+            GET: license/Create
+        </member>
+        <member name="M:RINOR_POS.Controllers.LicenseController.ActivateLicense(System.Int32)">
+            POST: License/Activate/5
+        </member>
+        <member name="M:RINOR_POS.Controllers.merchantController.GetIndexList">
+            <summary>
+            list for index
+            </summary>
+            <returns>JSON</returns>
+        </member>
+        <member name="M:RINOR_POS.Controllers.shopController.GetIndexList">
+            <summary>
+            list for index
+            </summary>
+            <returns>JSON</returns>
+        </member>
+        <member name="M:RINOR_POS.Controllers.userroleController.GetIndexList">
+            <summary>
+            list for index
+            </summary>
+            <returns>JSON</returns>
+        </member>
+        <member name="M:RINOR_POS.Controllers.user_accountController.GetEmployeeList(System.Nullable{System.Int32})">
+            <summary>
+            data untuk employee modal, 
+            
+            tampilkan hanya yang belum memiliki use id. user id yang di nonaktifkan, 
+            masi bisa dipakai tinggal akifkan lagi aja
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RINOR_POS.CustomAuthentication.CustomMembership.ValidateUser(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="username">ini sebenarnya username OR NIK</param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RINOR_POS.CustomAuthentication.CustomMembership.CreateUser(System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Object,System.Web.Security.MembershipCreateStatus@)">
+            <summary>
+            
+            </summary>
+            <param name="username"></param>
+            <param name="password"></param>
+            <param name="email"></param>
+            <param name="passwordQuestion"></param>
+            <param name="passwordAnswer"></param>
+            <param name="isApproved"></param>
+            <param name="providerUserKey"></param>
+            <param name="status"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RINOR_POS.CustomAuthentication.CustomMembership.GetUser(System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="username"></param>
+            <param name="userIsOnline"></param>
+            <returns></returns>
+        </member>
+        <member name="P:RINOR_POS.CustomAuthentication.CustomPrincipal.Roles">
+            <summary>
+            in this case : user_type_code
+            </summary>
+        </member>
+        <member name="M:RINOR_POS.CustomAuthentication.CustomRole.IsUserInRole(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="username"></param>
+            <param name="roleName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:RINOR_POS.CustomAuthentication.CustomRole.GetRolesForUser(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="username"></param>
+            <returns></returns>
+        </member>
+        <member name="T:RINOR_POS.CustomAuthentication.Role">
+            <summary>
+            role user
+            </summary>
+        </member>
+        <member name="P:RINOR_POS.CustomAuthentication.Role.RoleId">
+            <summary>
+            user_type_id
+            </summary>
+        </member>
+        <member name="P:RINOR_POS.CustomAuthentication.Role.RoleCode">
+            <summary>
+            user_type_code
+            </summary>
+        </member>
+        <member name="P:RINOR_POS.CustomAuthentication.Role.RoleName">
+            <summary>
+            user_type_name
+            </summary>
+        </member>
+        <member name="P:RINOR_POS.CustomAuthentication.Role.Users">
+            <summary>
+            employee user
+            </summary>
+        </member>
+        <member name="T:RINOR_POS.CustomAuthentication.User">
+            <summary>
+            user dalam hal ini adalah gabungan antara ms_user dan ms_employee
+            UserRole adalah ms_employee_detail
+            </summary>
+        </member>
+        <member name="P:RINOR_POS.CustomAuthentication.User.Roles">
+            <summary>
+            employee_detail
+            </summary>
+        </member>
+        <member name="T:RINOR_POS.ModelLicence.LICENSEViewModel">
+            <summary>
+            License View Model
+            </summary>
+        </member>
+    </members>
+</doc>

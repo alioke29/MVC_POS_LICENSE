@@ -1,0 +1,186 @@
+﻿@model RINOR_POS.Models.productDeptViewModel
+
+@{
+    ViewBag.Title = "Product Department";
+}
+
+<div id="content">
+    <div class="row">
+        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+            <h1 class="page-title txt-color-blueDark">
+
+                <!-- PAGE HEADER -->
+                <i class="fa-fw fa fa-pencil-square-o"></i>
+                Product
+                <span>
+                    >
+                    Department
+                </span>
+            </h1>
+        </div>
+    </div>
+
+    <section id="widget-grid" class="">
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="jarviswidget" id="wid-id-3" data-widget-editbutton="false" data-widget-custombutton="false" data-widget-togglebutton="false" data-widget-collapsed="false">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <h2>Product Department</h2>
+                    </header>
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+
+                            @using (Html.BeginForm("Edit", "productdept", FormMethod.Post, htmlAttributes: new { @class = "smart-form", enctype = "multipart/form-data" }))
+                            {
+                                <header>
+                                    Update Data Form
+                                </header>
+
+                                <fieldset>
+                                    <fieldset>
+                                        @Html.AntiForgeryToken()
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        <br />
+                                        @Html.HiddenFor(model => model.ShopID)
+                                        @Html.HiddenFor(model => model.ProductGroupID)
+                                        @Html.HiddenFor(model => model.ProductDeptID)
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.ShopName, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.ShopName, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control col-lg-6", placeholder = "Shop Name" } })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.ProductGroupName, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.ProductGroupName, new { htmlAttributes = new { @readonly = "readonly", @class = "form-control col-lg-6", placeholder = "Shop Name" } })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelRequiredFor(model => model.ProductDeptCode, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.ProductDeptCode, new { htmlAttributes = new { @class = "form-control col-lg-6", placeholder = "Product Department Code" } })
+                                                        @Html.ValidationMessageFor(model => model.ProductDeptCode, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelRequiredFor(model => model.ProductDeptName, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.ProductDeptName, new { htmlAttributes = new { @class = "form-control col-lg-6", placeholder = "Product Group Name" } })
+                                                        @Html.ValidationMessageFor(model => model.ProductDeptName, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.DisplayMobile, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <span class="onoffswitch-title"></span> <span class="onoffswitch">
+                                                        <input type="checkbox" name="DisplayMobile" id="chk_DisplayMobile" class="onoffswitch-checkbox" value="true" @(Model.DisplayMobile.GetValueOrDefault() ? "checked=\"checked\"" : "") />
+                                                        <label class="onoffswitch-label" for="chk_DisplayMobile">
+                                                            <span class="onoffswitch-inner" data-swchon-text="Yes" data-swchoff-text="No"></span>
+                                                            <span class="onoffswitch-switch"></span>
+                                                        </label>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.ProductDeptActivate, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <span class="onoffswitch-title"></span> <span class="onoffswitch">
+                                                        <input type="checkbox" name="ProductDeptActivate" id="chk_ProductDeptActivate" class="onoffswitch-checkbox" value="true" @(Model.ProductDeptActivate.GetValueOrDefault() ? "checked=\"checked\"" : "") />
+                                                        <label class="onoffswitch-label" for="chk_ProductDeptActivate">
+                                                            <span class="onoffswitch-inner" data-swchon-text="Yes" data-swchoff-text="No"></span>
+                                                            <span class="onoffswitch-switch"></span>
+                                                        </label>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <section>
+                                                <div class="row">
+                                                    <div class="col-md-1">
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        @Html.LabelFor(model => model.ProductDeptOrdering, new { htmlAttributes = new { @class = "form-control" } })
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <label class="input">
+                                                            @Html.EditorFor(model => model.ProductDeptOrdering, "1", new { htmlAttributes = new { @class = "form-control", placeholder = "Number" } })
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </section>
+                                        </section>
+                                    </fieldset>
+                                </fieldset>
+
+                                <footer>
+                                    <div class="form-group">
+                                        <div class="col-md-7">
+                                            @Html.ActionLink("Cancel", "Index", "productdept", new { id = Model.ProductGroupID }, htmlAttributes: new { @class = "btn btn-default" })
+                                            <input type="submit" value="Save" class="btn btn-primary" />
+                                        </div>
+                                    </div>
+                                </footer>
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>

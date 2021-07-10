@@ -1,0 +1,218 @@
+﻿<!-- Left panel : Navigation area -->
+<!-- Note: This width of the aside area can be adjusted through LESS variables -->
+<aside id="left-panel">
+
+    <!-- User info -->
+    @{ Html.RenderPartial("_CurrentUser"); }
+    <!-- end user info -->
+    <!-- NAVIGATION : This navigation is also responsive
+
+    To make this navigation dynamic please make sure to link the node
+    (the reference to the nav > ul) after page load. Or the navigation
+    will not initialize.
+    -->
+    @{
+        String currentUrl = Request.Url.ToString();
+        string set_active = "";
+        string set_style = "";
+
+    }
+    @model IEnumerable<RINOR_POS.ModelLicence.MenuViewModel>
+
+    @if (Model != null && Request.IsAuthenticated)
+    {
+        var bases = Request.Url.GetLeftPart(UriPartial.Authority);
+        var path = Request.ApplicationPath;
+        var baseURL = bases + path + "/";
+        <nav>
+            <ul>
+                @foreach (var Module in Model.Select(n => new { n.module_id, n.module_name }).Distinct())
+                {
+                    <li class="@Html.RouteIf(Module.module_name.ToLower(), "active")">
+                        <a href="#">
+                            @if (Module.module_name == "Home")
+                            {
+                                <i class="fa fa-lg fa-fw fa-home"></i>
+                            }
+                            else if (Module.module_name == "Manage Master")
+                            {
+                                <i class="fa fa-lg fa-fw fa-list-alt"></i>
+                            }
+                            else if (Module.module_name == "Manage User")
+                            {
+                                <i class="fa fa-lg fa-fw fa-group"></i>
+                            }
+                            else if (Module.module_name == "Administration")
+                            {
+                                <i class="fa fa-lg fa-fw fa-database"></i>
+                            }
+                            else if (Module.module_name == "Promotions")
+                            {
+                                <i class="fa fa-lg fa-fw fa-gift"></i>
+                            }
+                            else
+                            {
+                                <i class="fa fa-lg fa-fw fa-table"></i>
+                            }
+
+                            <span class="menu-item-parent">
+                                @Module.module_name
+                            </span>
+                        </a>
+                        @if (Request.Url.Segments.Length > 1)
+                        {
+                            String controllerUrl = Request.Url.Segments[1].ToString().ToLower();
+                            foreach (RINOR_POS.ModelLicence.MenuViewModel mn in Model.Where(n => n.module_id == Module.module_id))
+                            {
+                                String controller_main = controllerUrl.Replace(@"/", "");
+                                set_style = (mn.menu_url.ToLower().Equals(controller_main)) ? "display:block;" : "";
+                            }
+                        }
+
+                        <ul style="@set_style">
+                            @foreach (RINOR_POS.ModelLicence.MenuViewModel mn in Model.Where(n => n.module_id == Module.module_id))
+                            {
+                                if ((Request.Url.Segments.Length > 1) && (Request.Url.Segments.Length < 3))
+                                {
+                                    String controller_url = Request.Url.Segments[1].ToString().ToLower();
+                                    String controller_1 = controller_url.Replace(@"/", "");
+                                    set_active = (mn.menu_url.ToLower().Equals(controller_1)) ? "active" : "";
+
+                                }
+                                else if (Request.Url.Segments.Length == 3)
+                                {
+                                    String controller_url = Request.Url.Segments[1].ToString().ToLower();
+                                    String controller_url_2 = Request.Url.Segments[2].ToString().ToLower();
+                                    String controller_final = controller_url + controller_url_2;
+                                    set_active = (mn.menu_url.ToLower().Equals(controller_final)) ? "active" : "";
+                                }
+                                else if (Request.Url.Segments.Length > 3)
+                                {
+                                    String controller_url = Request.Url.Segments[1].ToString().ToLower();
+                                    String controller_1 = controller_url.Replace(@"/", "");
+                                    set_active = (mn.menu_url.ToLower().Equals(controller_1)) ? "active" : "";
+                                }
+                                else
+                                {
+                                    if (Request.Url.Segments[0] == @"/")
+                                    {
+                                        String controller_url = Request.Url.Segments[0].ToString().ToLower();
+                                        set_active = (mn.menu_url.ToLower().Equals("")) ? "active" : "";
+                                        //set_active = "active";
+                                    }
+                                    else
+                                    {
+                                        String controller_url = Request.Url.Segments[1].ToString().ToLower();
+                                        set_active = (mn.menu_url.ToLower().Equals(controller_url)) ? "active" : "";
+                                    }
+
+                                }
+
+                                <li class="@set_active">
+                                    <a href="@Url.Action("index", mn.menu_url, null, Request.Url.Scheme, Request.Url.Host)">
+                                        @if (mn.menu_name == "Dashboard")
+                                        {
+                                            <i class="fa fa-lg fa-fw fa-bar-chart-o"></i>
+                                        }
+                                        else if (mn.menu_name == "Preferences")
+                                        {
+                                            <i class="fa fa-lg fa-fw fa-cogs"></i>
+                                        }
+                                        else if (mn.menu_name.Contains("Product VAT"))
+                                        {
+                                            <i class="fa fa-lg fa-fw fa-suitcase"></i>
+                                        }
+                                        else if (mn.menu_name == "Sale Mode")
+                                        {
+                                            <i class="fa fa-lg fa-fw fa-list-ol"></i>
+                                        }
+                                        else if (mn.menu_name.Contains("Credit Card"))
+                                        {
+                                            <i class="fa fa-lg fa-fw fa-credit-card"></i>
+                                        }
+                                        else if (mn.menu_name == "Payment Type")
+                                        {
+                                            <i class="fa fa-lg fa-fw fa-money"></i>
+                                        }
+                                        else if (mn.menu_name.Contains("Computer"))
+                                        {
+                                            <i class="fa fa-lg fa-fw fa-desktop"></i>
+                                        }
+                                        else if (mn.menu_name == "Manage Printer")
+                                        {
+                                            <i class="fa fa-lg fa-fw fa-print"></i>
+                                        }
+                                        else if (mn.menu_name == "Manage Bill")
+                                        {
+                                            <i class="fa fa-lg fa-fw fa-book"></i>
+                                        }
+                                        else if (mn.menu_name == "Manage Receipt")
+                                        {
+                                            <i class="fa fa-lg fa-fw fa-book"></i>
+                                        }
+                                        else if (mn.menu_name == "Manage Reason")
+                                        {
+                                            <i class="fa fa-lg fa-fw fa-comments-o"></i>
+                                        }
+                                        else if (mn.menu_name == "Manage Module")
+                                        {
+                                            <i class="fa fa-lg fa-fw fa-th-large"></i>
+                                        }
+                                        else if (mn.menu_name == "Manage Menu")
+                                        {
+                                            <i class="fa fa-lg fa-fw fa-th"></i>
+                                        }
+                                        else if (mn.menu_name == "Manage Role")
+                                        {
+                                            <i class="fa fa-lg fa-fw fa-lock"></i>
+                                        }
+                                        else if (mn.menu_name == "Register User")
+                                        {
+                                            <i class="fa fa-lg fa-fw fa-user"></i>
+                                        }
+                                        else if (mn.menu_name == "Manage Promo")
+                                        {
+                                            <i class="fa fa-lg fa-fw fa-gift"></i>
+                                        }
+                                        else if (mn.menu_name == "Merchant Data")
+                                        {
+                                            <i class="fa fa-lg fa-fw fa-building "></i>
+                                        }
+                                        else if (mn.menu_name == "Brand Data")
+                                        {
+                                            <i class="fa fa-lg fa-fw fa-flag-o"></i>
+                                        }
+                                        else if (mn.menu_name == "Shop Data")
+                                        {
+                                            <i class="fa fa-lg fa-fw fa-institution"></i>
+                                        }
+                                        else if (mn.menu_name == "Product Data")
+                                        {
+                                            <i class="fa fa-lg fa-fw fa-cutlery"></i>
+                                        }
+                                        else if (mn.menu_name == "Product Price")
+                                        {
+                                            <i class="fa fa-lg fa-fw fa-tags"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="fa fa-lg fa-fw fa-inbox"></i>}
+                                        <span class="menu-item-parent">@mn.menu_name</span>
+                                    </a>
+                                </li>
+                            }
+
+                        </ul>
+                    </li>
+                }
+            </ul>
+        </nav>
+
+    }
+
+    <span class="minifyme" data-action="minifyMenu">
+        <i class="fa fa-arrow-circle-left hit"></i>
+    </span>
+
+</aside>
+<!-- END NAVIGATION -->

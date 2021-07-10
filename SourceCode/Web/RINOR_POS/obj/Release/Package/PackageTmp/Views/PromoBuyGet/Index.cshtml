@@ -1,0 +1,482 @@
+﻿@model RINOR_POS.Models.promotionbuygetViewModel
+
+@{
+    ViewBag.Title = "Promotion Buy X Get Y";
+}
+
+<div id="content">
+    <div class="row">
+        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+            <h1 class="page-title txt-color-blueDark">
+
+                <!-- PAGE HEADER -->
+                <i class="fa-fw fa fa-pencil-square-o"></i>
+                @Model.PromotionTypeName
+                <span>
+                    >
+                    @Model.PromotionName
+                </span>
+            </h1>
+        </div>
+    </div>
+
+    <section id="widget-grid" class="">
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="jarviswidget" id="wid-id-3" data-widget-editbutton="false" data-widget-custombutton="false" data-widget-togglebutton="false" data-widget-collapsed="false">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <h2>Promotion Buy X Get Y</h2>
+                    </header>
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+
+                            @using (Html.BeginForm("Index", "PromoBuyGet", FormMethod.Post, htmlAttributes: new { @class = "smart-form", enctype = "multipart/form-data" }))
+                            {
+                                <fieldset style="align-items:flex-end">
+                                    <a class="btn btn-default btn-sm pull-right header-btn hidden-mobile" href="@Url.Action("Index", "promotion", Request.Url.Scheme)"><i class='fa fa-arrow-circle-left'></i> Back</a>
+                                </fieldset>
+                                <fieldset>
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    @Html.HiddenFor(model => model.PromotionID)
+                                    @Html.HiddenFor(model => model.isActive)
+
+                                    <section>
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-11" style="background-color:blue; text-align:center; color:white; height:30px">
+                                                    <h4><b>BUY PRODUCT</b></h4>
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    @Html.LabelFor(model => model.BuyQty, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.BuyQty, "1", new { htmlAttributes = new { @class = "form-control", placeholder = "Promotion Price" } })
+                                                        @Html.ValidationMessageFor(model => model.BuyQty, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    @Html.LabelRequiredFor(model => model.BuySaleModeID, htmlAttributes: new { @class = "control-label" })
+                                                    @Html.ValidationMessageFor(model => model.BuySaleModeID, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="col-md-7 box-scroll">
+                                                    @foreach (var item in Model.SalemodeList)
+                                                    {
+                                                        <label class="container-box" style="padding-left:35px;margin-left:4px; margin-top:2px">
+                                                            <input id="chkSalemode@(item.SaleModeID)"
+                                                                   type="checkbox"
+                                                                   name="sale_mode_selected"
+                                                                   value="@item.SaleModeID" /><span class="checkmark"></span>
+                                                            @item.SaleModeName
+                                                        </label>
+                                                        <br />
+                                                    }
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    @Html.LabelRequiredFor(model => model.BuyMasterShopID, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <label class="input">
+                                                        @Html.DropDownListFor(model => model.BuyMasterShopID, new SelectList(Model.MasterShopList, "ShopID", "ShopName"), "- Select Master Shop -", htmlAttributes: new { @id = "ddlShop", @class = "form-control select2", @onChange = "GetProductGroupList(this.value)" })
+                                                        @Html.ValidationMessageFor(model => model.BuyMasterShopID, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    @Html.LabelRequiredFor(model => model.BuyProductGroupID, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <label class="input">
+                                                        @Html.DropDownListFor(model => model.BuyProductGroupID, new SelectList(Model.ProductGroupList, "ProductGroupID", "ProductGroupName"), "- Select Product Group -", htmlAttributes: new { @id = "ddlGroup", @class = "form-control select2", @onChange = "GetProductDeptList(this.value)" })
+                                                        @Html.ValidationMessageFor(model => model.BuyProductGroupID, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    @Html.LabelRequiredFor(model => model.BuyProductDepthID, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <label class="input">
+                                                        @Html.DropDownListFor(model => model.BuyProductDepthID, new SelectList(Model.ProductDeptList, "ProductDeptID", "ProductDeptName"), "- Select Product Dept -", htmlAttributes: new { @id = "ddlDept", @class = "form-control select2", @onChange = "GetProductList(this.value)" })
+                                                        @Html.ValidationMessageFor(model => model.BuyProductDepthID, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    @Html.LabelRequiredFor(model => model.BuyProductID, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-md-6 box-scroll" id="chkBoxProduct">
+                                                    @Html.ValidationMessageFor(model => model.BuyProductID, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-10" style="background-color:green; text-align:center; color:white; height:30px">
+                                                    <h4><b>GET PRODUCT</b></h4>
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    @Html.LabelFor(model => model.GetQty, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.GetQty, "1", new { htmlAttributes = new { @class = "form-control", placeholder = "Promotion Price" } })
+                                                        @Html.ValidationMessageFor(model => model.GetQty, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    @Html.LabelRequiredFor(model => model.GetSaleModeID, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <label class="input">
+                                                        @Html.DropDownListFor(model => model.GetSaleModeID, new SelectList(Model.SalemodeList, "SaleModeID", "SaleModeName"), "- Select Sale Mode -", htmlAttributes: new { @class = "form-control select2" })
+                                                        @Html.ValidationMessageFor(model => model.GetSaleModeID, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    @Html.LabelRequiredFor(model => model.GetMasterShopID, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <label class="input">
+                                                        @Html.DropDownListFor(model => model.GetMasterShopID, new SelectList(Model.MasterShopList, "ShopID", "ShopName"), "- Select Master Shop -", htmlAttributes: new { @id = "ddlShop2", @class = "form-control select2", @onChange = "GetProductGroupList2(this.value)" })
+                                                        @Html.ValidationMessageFor(model => model.GetMasterShopID, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    @Html.LabelRequiredFor(model => model.GetProductGroupID, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <label class="input">
+                                                        @Html.DropDownListFor(model => model.GetProductGroupID, new SelectList(Model.ProductGroupList, "ProductGroupID", "ProductGroupName"), "- Select Product Group -", htmlAttributes: new { @id = "ddlGroup2", @class = "form-control select2", @onChange = "GetProductDeptList2(this.value)" })
+                                                        @Html.ValidationMessageFor(model => model.GetProductGroupID, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    @Html.LabelRequiredFor(model => model.GetProductDeptID, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <label class="input">
+                                                        @Html.DropDownListFor(model => model.GetProductDeptID, new SelectList(Model.ProductDeptList, "ProductDeptID", "ProductDeptName"), "- Select Product Dept -", htmlAttributes: new { @id = "ddlDept2", @class = "form-control select2", @onChange = "GetSelectProductList(this.value)" })
+                                                        @Html.ValidationMessageFor(model => model.GetProductDeptID, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    @Html.LabelRequiredFor(model => model.GetProductID, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <label class="input">
+                                                        @Html.DropDownListFor(model => model.GetProductID, new SelectList(Model.ProductDeptList, "ProductID", "ProductName"), "- Select Product -", htmlAttributes: new { @id = "ddlProduct", @class = "form-control select2" })
+                                                        @Html.ValidationMessageFor(model => model.GetProductID, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+
+                                </fieldset>
+                                <fieldset>
+                                    <div class="form-group">
+                                        <div class="col-md-7">
+                                            @*<input id="btnDeleteAll" type="submit" value="Delete" style="margin-right:5px" class="btn btn-danger pull-right btn-sm" />*@
+                                            <input type="submit" value="Save" style="width:80px; margin:0px 20px 20px 0px" class="btn btn-primary pull-right btn-sm" />
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <section>
+                                        <div id="divtable" class="col-md-12" style="overflow:auto;height:500px">
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-10">
+                                                <div class="widget-body no-padding">
+                                                    <br />
+                                                    <table class="table table-striped table-bordered table-hover" id="table_basic">
+                                                        <thead>
+                                                            <tr>
+                                                                <th hidden="hidden"></th>
+                                                                <th style="width:30%; text-align:center">
+                                                                    Buy Quantity
+                                                                </th>
+                                                                <th style="width:23%">
+                                                                    Buy Product Name
+                                                                </th>
+                                                                <th style="width:15%; text-align:center">
+                                                                    Get Quantity
+                                                                </th>
+                                                                <th style="width:22%">
+                                                                    Get Product Name
+                                                                </th>
+                                                                <th style="width:10%">
+                                                                    Action
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody>
+                                                            @{
+                                                                int i = 0;
+                                                                foreach (var GroupSaleMode in Model.PromoBuyGetList.GroupBy(x => x.BuySaleModeID))
+                                                                {
+                                                                    <tr style="background-color:lightgray">
+                                                                        <td colspan="4" style="padding-left:3%">
+                                                                            <label>Sale Mode: @GroupSaleMode.FirstOrDefault().SaleModeName</label>
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    foreach (var GroupProduct in GroupSaleMode.GroupBy(x => x.BuyProductGroupID))
+                                                                    {
+                                                                        <tr style="background-color:lightgray">
+                                                                            <td colspan="4" style="padding-left:6%">
+                                                                                <label>Product Group Name: @GroupProduct.FirstOrDefault().ProductGroupName</label>
+                                                                            </td>
+                                                                        </tr>
+                                                                        foreach (var DeptProduct in GroupProduct.GroupBy(x => x.BuyProductDepthID))
+                                                                        {
+                                                                            <tr style="background-color:lightgray">
+                                                                                <td colspan="4" style="padding-left:9%">
+                                                                                    <label>Product Dept Name: @DeptProduct.FirstOrDefault().ProductDeptName</label>
+                                                                                </td>
+                                                                            </tr>
+                                                                            foreach (var item in DeptProduct)
+                                                                            {
+                                                                                <tr>
+                                                                                    <td hidden="hidden">
+                                                                                        @Html.EditorFor(modelItem => item.PromotionBuyGetID, new { htmlAttributes = new { @id = "PromotionProductID_" + i, @class = "form-control", @readonly = "readonly" } })
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        @Html.DisplayFor(modelItem => item.BuyQty, new { htmlAttributes = new { @id = "BuyQty_" + i, @class = "form-control" } })
+                                                                                    </td>
+                                                                                    <td style="padding-left:9%">
+                                                                                        @Html.DisplayFor(modelItem => item.ProductName, new { htmlAttributes = new { @id = "ProductName_" + i, @class = "form-control" } })
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        @Html.DisplayFor(modelItem => item.GetQty, new { htmlAttributes = new { @id = "GetQty_" + i, @class = "form-control" } })
+                                                                                    </td>
+                                                                                    <td style="padding-left:9%">
+                                                                                        @Html.DisplayFor(modelItem => item.GetProductName, new { htmlAttributes = new { @id = "GetProductName_" + i, @class = "form-control" } })
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <button value="@item.PromotionBuyGetID" onclick="DeletePromoByID(value)" class="btn btn-danger btn-sm">Delete</button>
+                                                                                    </td>
+                                                                                </tr>
+
+                                                                                i++;
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        </tbody>
+
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </fieldset>
+
+                                                                }
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>
+
+@section pagespecific {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#ddlShop').val('').change();
+        });
+        function GetProductGroupList(MasterShopID) {
+            $.ajax({
+                "url": baseURL + "promoBuyGet/GetProductGroupList?MasterShopID=" + MasterShopID,
+                "type": "GET",
+                "dataType": "json",
+                success: function (data) {
+                    var output = '<option value="0"> Select Product Group </option>';
+                    $.each(data, function (key, entry) {
+                        output += '<option value=' + entry.ProductGroupID + '>' + entry.ProductGroupName + '</option>';
+                    })
+                    $("#ddlGroup").html(output);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            });
+        }
+        function GetProductDeptList(ProductGroupID) {
+            $.ajax({
+                "url": baseURL + "promoBuyGet/GetProductDeptList?ProductGroupID=" + ProductGroupID,
+                "type": "GET",
+                "dataType": "json",
+                success: function (data) {
+                    var output = '<option value="0"> Select Product Dept </option>';
+                    $.each(data, function (key, entry) {
+                        output += '<option value=' + entry.ProductDeptID + '>' + entry.ProductDeptName + '</option>';
+                    })
+                    $("#ddlDept").html(output);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            });
+        }
+        function GetProductGroupList2(MasterShopID) {
+            $.ajax({
+                "url": baseURL + "promoBuyGet/GetProductGroupList?MasterShopID=" + MasterShopID,
+                "type": "GET",
+                "dataType": "json",
+                success: function (data) {
+                    var output = '<option value="0"> Select Product Group </option>';
+                    $.each(data, function (key, entry) {
+                        output += '<option value=' + entry.ProductGroupID + '>' + entry.ProductGroupName + '</option>';
+                    })
+                    $("#ddlGroup2").html(output);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            });
+        }
+        function GetProductDeptList2(ProductGroupID) {
+            $.ajax({
+                "url": baseURL + "promoBuyGet/GetProductDeptList?ProductGroupID=" + ProductGroupID,
+                "type": "GET",
+                "dataType": "json",
+                success: function (data) {
+                    var output = '<option value="0"> Select Product Dept </option>';
+                    $.each(data, function (key, entry) {
+                        output += '<option value=' + entry.ProductDeptID + '>' + entry.ProductDeptName + '</option>';
+                    })
+                    $("#ddlDept2").html(output);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            });
+        }
+        function GetProductList(ProductDeptID) {
+            $.ajax({
+                "url": baseURL + "promoBuyGet/GetProductList?ProductDeptID=" + ProductDeptID,
+                "type": "GET",
+                "dataType": "json",
+                success: function (data) {
+                    var output = '';
+                    $.each(data, function (key, entry) {
+                        output += '<label class="container-box" style="padding-left:35px;margin-left:4px; margin-top:2px"><input id="chkProductID_' + entry.ProductID + '" name="product_selected" type="checkbox" value="' + entry.ProductID + '" /><span class="checkmark"></span>' + entry.ProductName + '</label><br />'
+                    })
+
+                    $("#chkBoxProduct").html(output);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            });
+        }
+        function GetSelectProductList(ProductDeptID) {
+            $.ajax({
+                "url": baseURL + "promoBuyGet/GetProductList?ProductDeptID=" + ProductDeptID,
+                "type": "GET",
+                "dataType": "json",
+                success: function (data) {
+                    var output = '<option value="0"> Select Product </option>';
+                    $.each(data, function (key, entry) {
+                        output += '<option value=' + entry.ProductID + '>' + entry.ProductName + '</option>';
+                    })
+                    $("#ddlProduct").html(output);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            });
+        }
+        function DeletePromoByID(id) {
+            $.ajax({
+                type: "GET",
+                url: baseURL + "promoBuyGet/DeletePromoByID/" + id,
+                success: function (data) {
+                    if (data == "1") {
+                        location.reload(true);
+                    }
+                    else {
+                        alert("Failed Delete Data");
+                    }
+
+                },
+            });
+        }
+    </script>
+}

@@ -1,0 +1,258 @@
+﻿@model RINOR_POS.Models.receipttemplateViewModel
+
+@{
+    ViewBag.Title = "Logo Shop";
+}
+
+<div id="content">
+    <div class="row">
+        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+            <h1 class="page-title txt-color-blueDark">
+
+                <!-- PAGE HEADER -->
+                <i class="fa-fw fa fa-pencil-square-o"></i>
+                Logo Shop
+                <span>
+                    >
+                    Template
+                </span>
+            </h1>
+        </div>
+    </div>
+
+    <section id="widget-grid" class="">
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="jarviswidget" id="wid-id-3" data-widget-editbutton="false" data-widget-custombutton="false" data-widget-togglebutton="false" data-widget-collapsed="false">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <h2>Logo Shop </h2>
+                    </header>
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+
+                            @using (Html.BeginForm("LogoImage", "receipttemplate", FormMethod.Post, htmlAttributes: new { @class = "smart-form", enctype = "multipart/form-data" }))
+                            {
+                                <header>
+                                    New Logo Shop
+                                </header>
+
+                                <fieldset>
+                                    <fieldset>
+                                        @Html.AntiForgeryToken()
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        <br />
+                                        @Html.HiddenFor(model => model.MasterShopID, new { id = "MasterShopID" })
+                                        @Html.HiddenFor(model => model.ShopID, new { id = "ShopID" })
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.LogoHeaderFile, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <label class="input">
+                                                        <span class="input-group-btn">
+                                                            <span class="btn btn-default btn-file">
+                                                                Browse asset image ( *.jpg | *.gif | *.png )
+                                                                @*@Html.TextBoxFor(model => model.ProductPictureServer, new { id = "flPhoto", type = "file", @class = "form-control" })*@
+                                                                <input type="file" id="flPhoto" name="upload">
+                                                            </span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1"></div>
+                                                <div class="col-md-11">
+                                                    <table>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    Width: <label id="lblWidth">200px</label>
+                                                                    Height: <label id="lblHeight">200px</label>
+                                                                </td>
+                                                                <td><a href="#" id="hlcropImage" class="btn btn-primary" style="border-radius:5px"><i class="fa fa-crop"></i> Crop Image</a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div style="height:300px; width:300px; overflow:auto;">
+                                                                        <img id="imgEmpPhoto" src="@Model.LogoHeaderFile" alt="Image">
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <canvas id="canvas" height="5" width="5" style="padding:30%"></canvas>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <p>
+                                                        <img id="imgCropped" src="#" style="display:none;">
+                                                    </p>
+                                                    <input type="hidden" name="LogoHeaderFile" id="LogoHeaderFile">
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </fieldset>
+                                    <fieldset>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.QRFooterText, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.QRFooterText, new { htmlAttributes = new { @class = "form-control col-lg-6", placeholder = "QR Footer Text" } })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </fieldset>
+                                </fieldset>
+
+                                <footer>
+                                    <div class="form-group">
+                                        <div class="col-md-7">
+                                            @Html.ActionLink("Cancel", "Index", "receipttemplate", new { MasterShopID = Model.MasterShopID, ShopID = Model.ShopID }, htmlAttributes: new { @class = "btn btn-default" })
+                                            <input type="submit" value="Save" class="btn btn-primary" />
+                                        </div>
+                                    </div>
+                                </footer>
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>
+
+@section pagespecific {
+    <script type="text/javascript">
+        var imageCropWidth = 0;
+        var imageCropHeight = 0;
+        var cropPointX = 0;
+        var cropPointY = 0;
+        var jcropApi;
+
+        $("#hlcropImage").on("click", function (e) {
+
+            /*
+            The event.preventDefault() method stops the default action of
+            an element from happening. For example: Prevent a submit button
+            from submitting a form. Prevent a link from following the URL
+            */
+
+            e.preventDefault();
+            cropImage();
+        });
+
+        function initCrop() {
+            $('#imgEmpPhoto').Jcrop({
+                onChange: setCoordsAndImgSize,
+                aspectRatio: 0, // 1 means will be same for height and weight
+                onSelect: setCoordsAndImgSize
+            }, function () { jcropApi = this });
+        }
+
+        function showCoordinate() {
+            $("#lblWidth").text(imageCropWidth + "px");
+            $("#lblHeight").text(imageCropHeight + "px");
+        }
+
+        function setCoordsAndImgSize(e) {
+
+            imageCropWidth = e.w;
+            imageCropHeight = e.h;
+
+            cropPointX = e.x;
+            cropPointY = e.y;
+
+            $("#lblWidth").text(imageCropWidth + "px");
+            $("#lblHeight").text(imageCropHeight + "px");
+        }
+
+        function cropImage() {
+
+            if (imageCropWidth == 0 && imageCropHeight == 0) {
+                alert("Please select crop area.");
+                return;
+            }
+
+            var img = $("#imgEmpPhoto").attr("src");
+
+            /*Show cropped image*/
+            showCroppedImage();
+        }
+
+        function showCroppedImage() {
+            var x1 = cropPointX;
+            var y1 = cropPointY;
+
+            var width = imageCropWidth;
+            var height = imageCropHeight;
+            var canvas = $("#canvas")[0];
+            var context = canvas.getContext('2d');
+            var img = new Image();
+            img.onload = function () {
+                canvas.height = height;
+                canvas.width = width;
+                context.drawImage(img, x1, y1, width, height, 0, 0, width, height);
+                $('#LogoHeaderFile').val(canvas.toDataURL());
+            };
+            img.src = $('#imgEmpPhoto').attr("src");
+        }
+
+        function readFile(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                /*Destroy jcrop initialization other wise it will hold it previous image in img tag*/
+                if (jcropApi != null) {
+                    jcropApi.destroy();
+                }
+                reader.onload = function (e) {
+                    $('#imgEmpPhoto').attr('src', "");
+                    var img = $('#imgEmpPhoto').attr('src', e.target.result);
+
+                    /*Current uploaded image size*/
+                    var width = img[0].height;
+                    var height = img[0].width;
+                    $("#lblWidth").text(width + "px");
+                    $("#lblHeight").text(height + "px");
+
+                    //InitCrop must call here otherwise it will not work
+                    initCrop();
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $('#flPhoto').change(function () {
+            readFile(this);
+            //initCrop();
+        });
+
+        $(document).ready(function () {
+            //$('#ddlMasterShop').val('').change();
+        });
+
+    </script>
+}

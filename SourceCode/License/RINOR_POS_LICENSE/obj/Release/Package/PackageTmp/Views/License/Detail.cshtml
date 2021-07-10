@@ -1,0 +1,346 @@
+﻿@model RINOR_POS.ModelLicence.LICENSEViewModel
+
+@{
+    ViewBag.Title = "License";
+}
+
+<div id="content">
+    <div class="row">
+        <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+            <h1 class="page-title txt-color-blueDark">
+
+                <!-- PAGE HEADER -->
+                <i class="fa-fw fa fa-pencil-square-o"></i>
+                License
+                <span>
+                    >
+                    Detail Data
+                </span>
+            </h1>
+        </div>
+    </div>
+
+    <section id="widget-grid" class="">
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="jarviswidget" id="wid-id-3" data-widget-editbutton="false" data-widget-custombutton="false" data-widget-togglebutton="false" data-widget-collapsed="false">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <h2>License Data List</h2>
+                    </header>
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+                            <!-- This area used as dropdown edit box -->
+
+                        </div>
+                        <!-- end widget edit box -->
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+
+                            @using (Html.BeginForm("Edit", "License", FormMethod.Post, htmlAttributes: new { @class = "smart-form", enctype = "multipart/form-data" }))
+                            {
+                                <header>
+                                    Detail Data
+                                </header>
+
+                                <fieldset>
+                                    <fieldset>
+                                        @Html.AntiForgeryToken()
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        <br />
+                                        @Html.HiddenFor(model => model.LicenceDataID)
+
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelRequiredFor(model => model.MerchantID, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <label class="input">
+                                                        @Html.DropDownListFor(model => model.MerchantID, new SelectList(Model.merchant_list, "MerchantID", "MerchantName"), "- Select Merchant -", htmlAttributes: new { id = "ddlMerchant", @class = "form-control select2", @onChange = "GetBrandList(this.value)" })
+                                                        @Html.ValidationMessageFor(model => model.MerchantID, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelRequiredFor(model => model.BrandID, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <label class="input">
+                                                        @Html.DropDownListFor(model => model.BrandID, new SelectList(Model.brand_list, "BrandID", "BrandName"), "- Select Brand -", htmlAttributes: new { id = "ddlBrand", @class = "form-control select2", @onChange = "GetMasterShopList(this.value)" })
+                                                        @Html.ValidationMessageFor(model => model.BrandID, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.MasterShopID, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <label class="input">
+                                                        @Html.DropDownListFor(model => model.MasterShopID, new SelectList(Model.shop_list, "ShopID", "ShopName"), "- Select Master Shop -", htmlAttributes: new { id = "ddlMasterShop", @class = "form-control select2", @onChange = "GetShopList(this.value)" })
+                                                        @Html.ValidationMessageFor(model => model.MasterShopID, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.ShopID, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <label class="input">
+                                                        @Html.DropDownListFor(model => model.ShopID, new SelectList(Model.shop_list, "ShopID", "ShopName"), "- Select Shop -", htmlAttributes: new { id = "ddlShop", @class = "form-control select2" })
+                                                        @Html.ValidationMessageFor(model => model.ShopID, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelRequiredFor(model => model.LicenceType, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <label class="input">
+                                                        @Html.DropDownListFor(model => model.LicenceType, new SelectList(Model.licencetype_list, "LicenceTypeID", "LicenceName"), "- Select License Type -", htmlAttributes: new { id = "ddlLicense", @class = "form-control select2" })
+                                                        @Html.ValidationMessageFor(model => model.LicenceType, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelRequiredFor(model => model.LicenceKey, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.LicenceKey, new { htmlAttributes = new { @ID = "LicenceKey", @maxlength = "19", @class = "form-control item form-control-lg", @readonly = "readonly", @style = "text-align:center;font-size:large;background-color:aliceblue", placeholder = "Auto Generated" } })
+                                                        @Html.ValidationMessageFor(model => model.LicenceKey, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelRequiredFor(model => model.DeviceKey, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.DeviceKey, new { htmlAttributes = new { @class = "form-control", placeholder = "Device Key" } })
+                                                        @Html.ValidationMessageFor(model => model.DeviceKey, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelRequiredFor(model => model.LicenceStart, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label class="input-group">
+                                                        @{var BeginDate = string.Format("{0:dd-MM-yyyy}", Model.LicenceStart); }
+                                                        @Html.EditorFor(model => BeginDate, new { htmlAttributes = new { @class = "form-control", placeholder = "DD-MM-YYYY", id = "LicenceStart" } })
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                    </label>
+                                                    @Html.ValidationMessageFor(model => model.LicenceStart, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelRequiredFor(model => model.LicenceFinish, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label class="input-group">
+                                                        @{var ExpiredDate = string.Format("{0:dd-MM-yyyy}", Model.LicenceFinish); }
+                                                        @Html.EditorFor(model => ExpiredDate, new { htmlAttributes = new { @class = "form-control", placeholder = "DD-MM-YYYY", id = "LicenceFinish" } })
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                    </label>
+                                                    @Html.ValidationMessageFor(model => model.LicenceFinish, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelRequiredFor(model => model.BuyerEmail, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.BuyerEmail, new { htmlAttributes = new { @class = "form-control", placeholder = "Buyer Email" } })
+                                                        @Html.ValidationMessageFor(model => model.BuyerEmail, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelRequiredFor(model => model.BuyerMobileNo, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <label class="input">
+                                                        @Html.EditorFor(model => model.BuyerMobileNo, new { htmlAttributes = new { @class = "form-control", placeholder = "Buyer Email" } })
+                                                        @Html.ValidationMessageFor(model => model.BuyerMobileNo, "", new { @class = "text-danger" })
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-1">
+                                                </div>
+                                                <div class="col-md-2">
+                                                    @Html.LabelFor(model => model.isActive, htmlAttributes: new { @class = "control-label" })
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <span class="onoffswitch-title"></span> <span class="onoffswitch">
+                                                        <input type="checkbox" name="Activate" id="chk_flag" class="onoffswitch-checkbox" value="true" @(Model.isActive.GetValueOrDefault() ? "checked=\"checked\"" : "") />
+                                                        <label class="onoffswitch-label" for="chk_flag">
+                                                            <span class="onoffswitch-inner" data-swchon-text="Yes" data-swchoff-text="No"></span>
+                                                            <span class="onoffswitch-switch"></span>
+                                                        </label>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </fieldset>
+                                </fieldset>
+
+                                <footer>
+                                    <div class="form-group">
+                                        <div class="col-md-7">
+                                            @Html.ActionLink("Cancel", "Index", "License", htmlAttributes: new { @class = "btn btn-default" })
+                                            <input type="submit" value="Save" class="btn btn-primary" />
+                                        </div>
+                                    </div>
+                                </footer>
+
+                                                            }
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>
+
+@section pagespecific {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#LicenceStart').datepicker({
+                dateFormat: 'dd-mm-yy',
+                prevText: '<i class="fa fa-chevron-left"></i>',
+                nextText: '<i class="fa fa-chevron-right"></i>',
+                changeMonth: true,
+                changeYear: true
+            });
+            $('#LicenceFinish').datepicker({
+                dateFormat: 'dd-mm-yy',
+                prevText: '<i class="fa fa-chevron-left"></i>',
+                nextText: '<i class="fa fa-chevron-right"></i>',
+                changeMonth: true,
+                changeYear: true
+            });
+            $('.clockpicker').clockpicker({
+                placement: 'top',
+                align: 'left',
+                autoclose: 'true'
+            });
+        });
+        function GetBrandList(MerchantID) {
+            $.ajax({
+                "url": baseURL + "License/GetBrandList?MerchantID=" + MerchantID,
+                "type": "GET",
+                "dataType": "json",
+                success: function (data) {
+                    var output = '<option value="0"> Select Brand </option>';
+                    $.each(data, function (key, entry) {
+                        output += '<option value=' + entry.BrandID + '>' + entry.BrandName + '</option>';
+                    })
+                    $("#ddlBrand").html(output);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            });
+        }
+
+        function GetMasterShopList(BrandID) {
+            $.ajax({
+                "url": baseURL + "License/GetMasterShopList?BrandID=" + BrandID,
+                "type": "GET",
+                "dataType": "json",
+                success: function (data) {
+                    var output = '<option value="0"> Select Master Shop </option>';
+                    $.each(data, function (key, entry) {
+                        output += '<option value=' + entry.ShopID + '>' + entry.ShopName + '</option>';
+                    })
+                    $("#ddlMasterShop").html(output);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            });
+        }
+
+        function GetShopList(MasterShopID) {
+            var loc_id = $("#ddlBrand").val();
+            $.ajax({
+                "url": baseURL + "License/GetShopList?MasterShopID=" + MasterShopID,
+                "type": "GET",
+                "dataType": "json",
+                success: function (data) {
+                    var output = '<option value="0"> Select Shop </option>';
+                    $.each(data, function (key, entry) {
+                        output += '<option value=' + entry.ShopID + '>' + entry.ShopName + '</option>';
+                    })
+                    $("#ddlShop").html(output);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            });
+        }
+    </script>
+}
